@@ -10,10 +10,12 @@ class Player extends React.Component<Props> {
   componentDidMount () {
     const player = new XGPlayer({
       id: 'mse',
+      width: window.innerWidth,
+      height: window.innerHeight,
       url: this.props.url,
-      fluid: true,
       autoplay: true,
-      videoInit: true
+      videoInit: true,
+      ignores: ['time', 'definition', 'error', 'fullscreen', 'i18n', 'pc', 'play', 'replay', 'volume']
     })
     console.log(player)
   }

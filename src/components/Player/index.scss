@@ -7,4 +7,52 @@
   display: flex;
   align-items: center;
   background-color: #000;
+
+  .xgplayer {
+    &-controls {
+      transition: all 0.2s linear;
+    }
+    &-progress {
+      transition: all 0.2s linear;
+
+      &-played {
+        background-image: linear-gradient(-90deg,#fff,#fff);
+      }
+      &-btn {
+        top: -3px;
+        width: 9px;
+        height: 9px;
+      }
+    }
+  }
+  
+  .xgplayer-skin-default.xgplayer-inactive {
+    .xgplayer {
+      &-controls {
+        display: block;
+        opacity: 0.5;
+      }
+      &-progress {
+        &-outer {
+          height: 1px;
+          
+        }
+        &-btn {
+          top: -2px;
+          width: 6px;
+          height: 6px;
+        }
+      }
+    }
+  }
+
+  .xgplayer-skin-default.xgplayer-mobile .xgplayer-progress:focus .xgplayer-progress-btn,
+  .xgplayer-skin-default.xgplayer-mobile .xgplayer-progress:hover .xgplayer-progress-btn {
+    top: -3px!important;
+  }
+
+  .xgplayer-skin-default.xgplayer-mobile.xgplayer-inactive .xgplayer-progress:focus .xgplayer-progress-btn,
+  .xgplayer-skin-default.xgplayer-mobile.xgplayer-inactive .xgplayer-progress:hover .xgplayer-progress-btn {
+    top: -2px!important;
+  }
 }
