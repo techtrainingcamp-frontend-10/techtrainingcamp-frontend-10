@@ -23,6 +23,7 @@ class Player extends React.Component<IProps> {
         videoInit: true,
         'x5-video-player-type': 'h5',
         playsinline: false,
+        loop: true,
         ignores: ['time', 'definition', 'error', 'fullscreen', 'i18n', 'pc', 'play', 'replay', 'volume']
       })
     } else if (this.props.type === 'live') {
