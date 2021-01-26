@@ -16,15 +16,16 @@
       transition: all 0.2s linear;
 
       &-outer, &-cache, &-played {
-        border-radius: 5px;
+        border-radius: 5px9px!important;
       }
       &-played {
-        background-image: #ffffff!important;
+        background-image: none!important;
+        background-color: #ffffff!important;
       }
       &-btn {
-        top: -3px;
-        width: 9px;
-        height: 9px;
+        top: -3px9px!important;
+        width: 9px9px!important;
+        height: 9px9px!important;
       }
     }
   }
