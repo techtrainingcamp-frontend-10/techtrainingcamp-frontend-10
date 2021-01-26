@@ -27,14 +27,31 @@ Random.extend({
 })
 
 const url = {
-  getVideoList: /.*\/getVideoList/
+  getVideoList: /.*\/getVideoList/,
+  getLiveList: /.*\/getLiveList/
 }
 
 Mock.mock(url.getVideoList, {
   'videoList|5': [{
     'id|+1': Random.increment(),
     'author|1': ['字节君', 'Butter-fly', '肆无忌惮', '摩天大楼', '初学者'],
-    'url|1': ['https://sf1-hscdn-tos.pstatp.com/obj/media-fe/xgplayer_doc_video/mp4/xgplayer-demo-360p.mp4'],
+    'url|1': Random.pick([
+      'https://sf1-hscdn-tos.pstatp.com/obj/media-fe/xgplayer_doc_video/mp4/xgplayer-demo-360p.mp4'
+    ]),
+    'description|1': ['字节跳动8周年，不忘初心，Always Day1', '哈哈哈测试测试', '苟利国家生死以，岂因祸福避趋之'],
+    'tagList|1': ['@tags'],
+    'likes|100-10000': 10000,
+    'comments|100-10000': 10000
+  }]
+})
+
+Mock.mock(url.getLiveList, {
+  'liveList|5': [{
+    'id|+1': Random.increment(),
+    'author|1': ['字节君', 'Butter-fly', '肆无忌惮', '摩天大楼', '初学者'],
+    'url|1': Random.pick([
+      '//sf1-hscdn-tos.pstatp.com/obj/media-fe/xgplayer_doc_video/hls/xgplayer-demo.m3u8'
+    ]),
     'description|1': ['字节跳动8周年，不忘初心，Always Day1', '哈哈哈测试测试', '苟利国家生死以，岂因祸福避趋之'],
     'tagList|1': ['@tags'],
     'likes|100-10000': 10000,

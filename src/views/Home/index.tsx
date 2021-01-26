@@ -1,8 +1,10 @@
 import React from 'react'
 // import { Link } from 'react-router-dom'
 import { getVideoList } from '../../api/video'
-import Video from '../../components/Video'
+import VideoPlayer from '../../components/VideoPlayer'
 import { IVideo } from '../../types/video'
+import Top from './Top'
+import './index.scss'
 
 interface IProps {
 }
@@ -36,9 +38,9 @@ class Home extends React.Component<IProps, IState> {
     const video = this.state.videoList[0]
 
     return (
-      <div>
-        {/* <Link to='/live'>Live</Link> */}
-        {video && <Video video={video} />}
+      <div className='home'>
+        <Top />
+        {video && <VideoPlayer video={video} />}
       </div>
     )
   }
