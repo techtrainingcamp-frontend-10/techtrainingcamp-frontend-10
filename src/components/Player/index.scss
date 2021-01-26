@@ -15,6 +15,9 @@
     &-progress {
       transition: all 0.2s linear;
 
+      &-outer, &-cache, &-played {
+        border-radius: 5px;
+      }
       &-played {
         background-image: linear-gradient(-90deg,#fff,#fff);
       }
@@ -35,7 +38,6 @@
       &-progress {
         &-outer {
           height: 1px;
-          
         }
         &-btn {
           top: -2px;
