@@ -21,6 +21,8 @@ class Player extends React.Component<IProps> {
         url: this.props.url,
         autoplay: true,
         videoInit: true,
+        'x5-video-player-type': 'h5',
+        playsinline: false,
         ignores: ['time', 'definition', 'error', 'fullscreen', 'i18n', 'pc', 'play', 'replay', 'volume']
       })
     } else if (this.props.type === 'live') {
@@ -32,6 +34,8 @@ class Player extends React.Component<IProps> {
         autoplay: true,
         videoInit: true,
         controls: false,
+        'x5-video-player-type': 'h5',
+        playsinline: false,
         ignores: ['time', 'definition', 'error', 'fullscreen', 'i18n', 'loading', 'mobile', 'pc', 'play', 'poster', 'progress', 'replay', 'volume']
       })
     }
