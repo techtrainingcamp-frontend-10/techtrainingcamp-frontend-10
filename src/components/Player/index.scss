@@ -16,16 +16,16 @@
       transition: all 0.2s linear;
 
       &-outer, &-cache, &-played {
-        border-radius: 5px9px!important;
+        border-radius: 5px!important;
       }
       &-played {
         background-image: none!important;
         background-color: #ffffff!important;
       }
       &-btn {
-        top: -3px9px!important;
-        width: 9px9px!important;
-        height: 9px9px!important;
+        top: -3px!important;
+        width: 9px!important;
+        height: 9px!important;
       }
     }
   }
@@ -38,12 +38,12 @@
       }
       &-progress {
         &-outer {
-          height: 1px;
+          height: 1px!important;
         }
         &-btn {
-          top: -2px;
-          width: 6px;
-          height: 6px;
+          top: -2px!important;
+          width: 6px!important;
+          height: 6px!important;
         }
       }
     }
