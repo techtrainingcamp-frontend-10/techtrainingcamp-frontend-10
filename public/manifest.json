@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "My TikTok",
+  "name": "ByteDance Tech Training Camp - Frontend - Group 10",
   "icons": [
     {
       "src": "favicon.ico",
