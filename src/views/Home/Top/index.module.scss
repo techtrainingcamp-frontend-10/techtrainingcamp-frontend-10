@@ -8,7 +8,9 @@
   justify-content: space-between;
   padding: 20px;
 
-  // .left {}
+  .left {
+    width: 60px;
+  }
 
   .middle {
     .navbar {
@@ -41,6 +43,10 @@
   }
 
   .right {
+    width: 60px;
+    display: flex;
+    flex-direction: row-reverse;
+
     .search-btn {
       width: 22px;
       height: 22px;
