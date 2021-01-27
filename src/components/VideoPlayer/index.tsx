@@ -2,9 +2,11 @@ import React from 'react'
 import styles from './index.module.scss'
 import Player from '../Player'
 import { IVideo } from '../../types/video'
+import classNames from 'classnames'
 
 interface IProps {
   video: IVideo;
+  active?: boolean;
 }
 
 interface IState {
@@ -12,11 +14,12 @@ interface IState {
 
 class VideoPlayer extends React.Component<IProps, IState> {
   render () {
-    const { url, author, description, tagList, likes, comments } = this.props.video
+    const { id, url, author, description, tagList, likes, comments } = this.props.video
+    const { active } = this.props
 
     return (
-      <div className={styles.videl}>
-        <Player url={url} type='video' />
+      <div className={classNames(styles.video, { 'video-avtice': active })}>
+        <Player id={id.toString()} url={url} type='video' active={active} />
         <div className={styles.info}>
           <div className={styles.author}>
             @{author}
