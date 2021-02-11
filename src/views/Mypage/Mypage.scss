@@ -1,0 +1,155 @@
+@import '~antd/dist/antd.css';
+$--sub-text-color:black;
+.mypage{
+    &-main{
+        position: relative;
+        width: 100%;
+        &-works{
+           width: 100%;
+           padding:5px 5px 15px 5px;
+           display: grid;
+           position: relative;
+           grid-template-columns: repeat(3,1fr);
+           column-gap: 0.1rem;
+           row-gap: 0.3rem;
+           img{
+               min-height: 150px;
+               object-fit: cover;
+           }
+        }
+        &-work-wrap{
+            position: relative;
+            .label{
+                position:absolute;
+                z-index: 1;
+                left: 5px;
+                bottom: 5px;
+                font-size: 15px;
+                font-weight: bold;
+                color: white;
+            }
+        }
+        &-footer{
+            font-size: 15px;
+            color: gray;
+            margin:5px auto;
+        }
+    }
+    &-wrapper{
+        position: relative;
+        width: 100vw;
+        height: auto;
+        display: block;
+    }
+    &-header{
+
+        &-cover{
+            width: 100%;
+            height: 150px;
+            overflow: hidden;
+            position: fixed;
+            top:0px;
+            z-index: -1;
+            background-image: linear-gradient(to top, #a3bded 0%, #6991c7 100%);
+            &::after{
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-image: linear-gradient(rgba(6, 2, 29, 0),rgba(6, 2, 29, 0), rgba(6, 2, 29, 0.45));
+            }
+            &>img{
+                width: 100%;
+                height: auto;
+                object-fit:cover;
+            }
+            
+        }
+    }
+    &-info{
+        background-color: gray;
+        margin-top: 150px;
+        padding: 20px 20px 10px 22px;
+        &-header{
+        flex-direction: row;
+        display: flex;
+        align-items: flex-start;
+            &-avatar{
+                width: 80px;
+                height: 80px;
+                position: relative;
+                top:-25px;
+                background-color: gray;
+                
+                &-img{
+                    width: 100%;
+                    height: 100%;
+                    z-index: -1;
+                    border-radius: 50%;
+                }
+                &-ripon{
+                    width: 150%;
+                    height: 150%;
+                    z-index: 1;
+                    position: absolute;
+                    top:-25%;
+                    left: -25%;
+                }
+            }
+        }
+        &-nickname{
+            font-size: 22px;
+            font-weight: 600;
+            line-height: 20px;
+            max-width: 60%;
+            text-overflow:ellipsis;
+            display: flex;
+            flex-direction: row;
+
+        }
+        &-tikid{
+            line-height: 16px;
+            font-size: 12px;
+            color: $--sub-text-color;
+            font-family: YouYuan;
+            font-weight: bold;
+            align-items: center;
+            display: flex;
+            margin-top: 15px;
+            &>span{
+                color: white;
+                font-size: 18px;
+                margin-left: 5px;
+            }
+        }
+        &-bio{
+            font-size: 15px;
+            margin-top:23px;
+        }
+        &-tags{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            max-width: 50%;
+            margin-top: 5px;
+        }
+    }
+    &-number{
+        &-wrapper{
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+        }
+    }
+}
+.number-info{
+    margin-left:auto; margin-right:auto;
+    &-num{
+        font-size: 20px;
+        font-weight: 400;
+        margin-right: 3px;
+        margin-left: 5px;
+    }
+}

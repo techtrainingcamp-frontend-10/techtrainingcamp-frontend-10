@@ -6,7 +6,8 @@ import {
 
 import Home from './views/Home/index'
 import Live from './views/Live/index'
-
+import Ucenter from './views/Ucenter/Ucenter'
+import Mypage from './views/Mypage/Mypage'
 // This site has 3 pages, all of which are rendered
 // dynamically in the browser (not server rendered).
 //
@@ -15,7 +16,13 @@ import Live from './views/Live/index'
 // through the site. This preserves the browser history,
 // making sure things like the back button and bookmarks
 // work properly.
-
+/*
+_____________________
+login https://qingfuwu.cn/dashboard first to avoid cors error
+id:yejiahao.tech
+pswd:edwnXeu2ds
+_____________________
+*/
 export default function BasicExample () {
   return (
     <Router>
@@ -30,6 +37,8 @@ export default function BasicExample () {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/live' component={Live} />
+          <Route path='/ucenter' component={Ucenter} />
+          <Route path='/mypage' component={Mypage} />
         </Switch>
       </div>
     </Router>
