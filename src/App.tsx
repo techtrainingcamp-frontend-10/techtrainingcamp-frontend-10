@@ -40,7 +40,7 @@ export default function BasicExample () {
           <Route path='/live' component={Live} />
           <Route path='/ucenter' component={Ucenter} />
           <Route path='/mypage' component={Mypage} />
-          <Route path='/dev' component={Vcomment} />
+          <Route path='/dev' component={Vcomment} videoId='1612780375771' />
         </Switch>
       </div>
     </Router>

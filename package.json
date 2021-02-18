@@ -15,6 +15,7 @@
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "dayjs": "^1.10.4",
+    "emoji-mart": "^3.0.0",
     "mockjs": "^1.1.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -55,6 +56,7 @@
   "devDependencies": {
     "@types/classnames": "^2.2.11",
     "@types/dplayer": "^1.25.1",
+    "@types/emoji-mart": "^3.0.4",
     "@types/mockjs": "^1.0.3",
     "@types/react-router-dom": "^5.1.7",
     "@types/swiper": "^5.4.1",
