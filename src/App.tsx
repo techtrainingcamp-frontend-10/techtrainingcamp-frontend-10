@@ -9,6 +9,7 @@ import Live from './views/Live/index'
 import Ucenter from './views/Ucenter/Ucenter'
 import Mypage from './views/Mypage/Mypage'
 import Vcomment from './components/Vcomment/index'
+import VliveComment from './components/Vlivecomment'
 // This site has 3 pages, all of which are rendered
 // dynamically in the browser (not server rendered).
 //
@@ -41,6 +42,7 @@ export default function BasicExample () {
           <Route path='/ucenter' component={Ucenter} />
           <Route path='/mypage' component={Mypage} />
           <Route path='/dev' component={Vcomment} videoId='1612780375771' />
+          <Route path='/dev2' component={VliveComment} />
         </Switch>
       </div>
     </Router>

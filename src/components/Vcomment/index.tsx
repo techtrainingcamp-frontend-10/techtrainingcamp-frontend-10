@@ -347,3 +347,4 @@ class VcommentDrawer extends React.Component<IProps, IState> {
 }
 
 export default VcommentDrawer
+export type { ICommentProps }

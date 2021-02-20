@@ -1,0 +1,55 @@
+@import '~antd/dist/antd.css';
+.vlive-comment{
+  &-wrapper{
+    position:absolute;
+    left:5px;
+    bottom:5px;
+    display: flex;
+    height: 30vh;
+    width: 60vw;
+    flex-direction: column;
+    overflow: scroll; 
+    &::-webkit-scrollbar{
+      display: none;
+    }
+  }
+  &-item{
+    &-wrapper{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;  // 控制多行的行数
+    -webkit-box-orient: vertical;
+    background-color: #535252ba;
+    color: white;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    max-height: 50px;
+    margin-bottom: 8px;
+    padding:3px 10px 5px 10px;
+    border-radius: 15px;
+    }
+    &-uname{
+      font-weight: bold;
+      margin-right: 5px;
+    }
+  }
+}
+.example-enter {
+  opacity: 0.01;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.example-leave {
+  opacity: 1;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transition: opacity 500ms ease-in;
+}
