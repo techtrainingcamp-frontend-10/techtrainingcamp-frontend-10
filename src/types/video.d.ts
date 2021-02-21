@@ -1,9 +1,11 @@
 export interface IVideo {
-  id: number;
-  author: string;
+  _id: string;
+  commentsCount: number;
+  createdAt: string;
+  likeCounts: number,
+  ownerId: string,
+  updatedAt: string;
+  videoId: string;
+  videoName: string;
   url: string;
-  description: Array<string>,
-  tagList: Array<string>,
-  likes: number;
-  comments: number;
 }

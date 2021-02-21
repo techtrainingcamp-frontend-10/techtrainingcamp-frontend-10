@@ -53,18 +53,22 @@ class VideoPlayer extends React.Component<IProps, IState> {
   }
 
   render () {
-    const { id, url, author, description, tagList, likes, comments } = this.props.video
+    const { _id, url, ownerId, likeCounts, commentsCount } = this.props.video
     const { active } = this.props
+
+    // TODO: wait to add
+    const description = '无'
+    const tagList = ['1', '2', '3']
 
     return (
       <div className={classNames(styles.video, { 'video-avtice': active })}>
-        <Player id={id.toString()} url={url} type='video' active={active} onTimeChange={this.handleTimeChange} onRef={(c:any) => { this.ChildPlayer = c }} />
+        <Player id={_id} url={url} type='video' active={active} onTimeChange={this.handleTimeChange} onRef={(c:any) => { this.ChildPlayer = c }} />
         <div className={styles.info}>
           <div className={styles.liveComents}>
             <VliveComment />
           </div>
           <div className={styles.author}>
-            @{author}
+            @{ownerId}
           </div>
           <div className={styles.description}>
             {description}
@@ -82,11 +86,11 @@ class VideoPlayer extends React.Component<IProps, IState> {
         <div className={styles.action}>
           <div className={styles.like}>
             <div className={styles['like-icon']} />
-            <div className={styles['like-number']}>{likes}</div>
+            <div className={styles['like-number']}>{likeCounts}</div>
           </div>
           <div className={styles.comment}>
             <div className={styles['comment-icon']} />
-            <div className={styles['comment-number']}>{comments}</div>
+            <div className={styles['comment-number']}>{commentsCount}</div>
           </div>
         </div>
       </div>
