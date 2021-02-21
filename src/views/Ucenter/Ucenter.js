@@ -35,7 +35,7 @@ class UserCenterCardLogin extends React.Component {
               src={this.props.avatar}
               icon={<AntDesignOutlined />}
             />
-            <text className='usercenter-card-login-content_user'>{this.props.uname}</text>
+            <span className='usercenter-card-login-content_user'>{this.props.uname}</span>
           </div>
         </div>
       </div>
@@ -72,8 +72,8 @@ class UserCenterCardLoginSucess extends React.Component {
               src={this.props.avatar}
               icon={<AntDesignOutlined />}
             />
-            <text className='usercenter-card-login-content_user'>{this.props.uname}</text>
-            <text className='usercenter-card-login-content_info'>欢迎回来，正在跳转...</text>
+            <span className='usercenter-card-login-content_user'>{this.props.uname}</span>
+            <span className='usercenter-card-login-content_info'>欢迎回来，正在跳转...</span>
           </div>
         </div>
       </div>
@@ -207,7 +207,7 @@ class UserCenterFormRegi extends React.Component {
     return (
       <div className='usercenter-form-card'>
         <Form
-          ref={this.formRef} name='control-ref' onFinish={this.handleOnFinish} class=''
+          ref={this.formRef} name='control-ref' onFinish={this.handleOnFinish}
           initialValues={{
             residence: ['zhejiang', 'hangzhou', 'xihu'],
             prefix: '86'
@@ -438,7 +438,7 @@ class UserCenterFormLogin extends React.Component {
             rules={[{ required: true, message: '请输入密码' }]}
           >
             <Input.Password
-              class='input'
+              className='input'
               prefix={<LockOutlined className='site-form-item-icon' />}
               placeholder='账号密码'
               iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
@@ -540,7 +540,7 @@ class UserCenter extends React.Component {
 }
 const ucenter = () => (
   <>
-    <video id='ucenterBgVedio' playsInline autoPlay='true' muted loop src='https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qcmt57/cbbf7b1a02c400d6_1612887218358.mp4' data-object-fit='true' type='video/mp4' poster='https://sf1-scmcdn-tos.pstatp.com/goofy/ies/douyin_home_web/imgs/1.9e1ce889.jpg'>抱歉，您的浏览器不支持内嵌视频</video>
+    <video id='ucenterBgVedio' playsInline autoPlay muted loop src='https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qcmt57/cbbf7b1a02c400d6_1612887218358.mp4' data-object-fit='true' type='video/mp4' poster='https://sf1-scmcdn-tos.pstatp.com/goofy/ies/douyin_home_web/imgs/1.9e1ce889.jpg'>抱歉，您的浏览器不支持内嵌视频</video>
     <div className='wrapper'>
       <UserCenter />
     </div>
