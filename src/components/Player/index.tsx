@@ -59,7 +59,7 @@ class Player extends React.Component<IProps, IState> {
         danmu: {
           comments: this.state.dmkList,
           area: {
-            start: 0.5,
+            start: 0.3,
             end: 1
           }
         }
