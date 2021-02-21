@@ -1,10 +1,11 @@
 import React from 'react'
-import { Form, Input, Button, Checkbox, Avatar, Select, Tooltip, DatePicker, Divider, Upload, message, Alert } from 'antd'
+import { Form, Input, Button, Checkbox, Avatar, Select, Tooltip, DatePicker, Divider, Upload, message, Alert, notification } from 'antd'
 import { UserOutlined, LockOutlined, EyeInvisibleOutlined, EyeTwoTone, InfoCircleOutlined, QrcodeOutlined, AntDesignOutlined, LoadingOutlined, PlusOutlined, EnvironmentFilled, ContactsFilled } from '@ant-design/icons'
 import ImgCrop from 'antd-img-crop'
 import axios from 'axios'
 import './Ucenter.scss'
 import PropTypes from 'prop-types'
+import classNames from 'classnames'
 const { Option } = Select
 
 class UserCenterCardLogin extends React.Component {
@@ -35,7 +36,7 @@ class UserCenterCardLogin extends React.Component {
               src={this.props.avatar}
               icon={<AntDesignOutlined />}
             />
-            <text className='usercenter-card-login-content_user'>{this.props.uname}</text>
+            <div className='usercenter-card-login-content_user'>{this.props.uname}</div>
           </div>
         </div>
       </div>
@@ -51,7 +52,7 @@ UserCenterCardLogin.propTypes = {
 class UserCenterCardLoginSucess extends React.Component {
   render () {
     return (
-      <div className={`usercenter-card -back ${this.props.mode === 'loginSucs' ? 'show' : 'hide'}`}>
+      <div className={`usercenter-card -back ${this.props.mode === 'loginSucs' || this.props.mode === 'regiSucs' ? 'show' : 'hide'}`}>
         <div className='usercenter-card-focus' />
         <div className='usercenter-card-background'>
           <img
@@ -72,8 +73,8 @@ class UserCenterCardLoginSucess extends React.Component {
               src={this.props.avatar}
               icon={<AntDesignOutlined />}
             />
-            <text className='usercenter-card-login-content_user'>{this.props.uname}</text>
-            <text className='usercenter-card-login-content_info'>欢迎回来，正在跳转...</text>
+            <div className='usercenter-card-login-content_user'>{this.props.uname}</div>
+            <div className='usercenter-card-login-content_info'>欢迎回来，正在跳转...</div>
           </div>
         </div>
       </div>
@@ -96,8 +97,8 @@ class UserCenterCardRegi extends React.Component {
   }
 
   render () {
-    return this.props.mode === 'regi' && (
-      <div className='usercenter-card -register'>
+    return (
+      <div className={classNames('usercenter-card', '-register', '-front', { hide: this.props.mode !== 'regi' })}>
         <div className='usercenter-card-background'>
           <img
             src={this.props.bg} className='usercenter-card__bg'
@@ -107,7 +108,7 @@ class UserCenterCardRegi extends React.Component {
           <div className='usercenter-card-regi-header'>
             <div className='usercenter-card-regi-header-info' onClick={this.handleTriggerQR}>
               <div className='item'><ContactsFilled />{this.props.ages}</div>
-              <div className='item'><EnvironmentFilled />{this.props.local}</div>
+              <div className='item'><EnvironmentFilled />{this.props.regin}</div>
             </div>
             <img className='usercenter-card-login-header_logo' src='//sf3-ttcdn-tos.pstatp.com/obj/ttfe/passport/sso/douyin/douyin-logo_1576745941218.png' alt='logo' />
 
@@ -118,7 +119,7 @@ class UserCenterCardRegi extends React.Component {
               src={this.props.avatar}
               icon={<AntDesignOutlined />}
             />
-            <text className='usercenter-card-login-content_user'>林治</text>
+            <div className='usercenter-card-login-content_user'>{this.props.uname}</div>
           </div>
         </div>
       </div>
@@ -130,19 +131,44 @@ UserCenterCardRegi.propTypes = {
   bg: PropTypes.string,
   avatar: PropTypes.string,
   ages: PropTypes.string,
-  local: PropTypes.string
+  regin: PropTypes.string,
+  uname: PropTypes.string
 }
 class UserCenterFormRegi extends React.Component {
   regiFormRef = React.createRef();
   constructor (props) {
     super(props)
-    this.state = { loaingAvatar: false, avatarUrl: '' }
-    this.uploadButton.bind(this)
+    this.state = { loaingAvatar: false, avatarUrl: '', avatarLoading: false, bgImgUrl: '', bgImgLoading: false, emailUnvali: false, unameUnvali: false, formSubmiting: false }
   }
 
-  handleOnFinish = (values) => {
+  notiNetworkErr = () => {
+    notification.error({
+      message: '注册提交失败',
+      description:
+        '提交注册信息的时候和星球失去连接啦，再尝试一下吧'
+    })
+  }
+
+  handleOnRegiSubmit = (values) => {
     console.log('Received values of form: ', values)
-  };
+    delete values.agreement
+    this.setState({ formSubmiting: true })
+    axios.post('https://qcmt57.fn.thelarkcloud.com/register', values).then(response => {
+      console.log(response)
+      if (response.data.success) {
+        console.log('Registered!!')
+        localStorage.setItem('userId', response.data.userId)//  save token/Uid to local
+        localStorage.setItem('userToken', response.data.token)
+        this.props.onModechange('regiSucs')
+      } else {
+        const errors = { emailUnvali: response.data.isEmailExist, unameUnvali: response.data.isUnameExist }
+        this.setState(errors)
+      }
+    }).catch(err => {
+      console.log(err)
+      this.notiNetworkErr()
+    })
+  }
 
   tailFormItemLayout = {
     wrapperCol: {
@@ -157,16 +183,6 @@ class UserCenterFormRegi extends React.Component {
     }
   };
 
-  iconChange=({ info }) => {
-    console.log(info.file)
-  }
-
-  getBase64 (img, callback) {
-    const reader = new FileReader()
-    reader.addEventListener('load', () => callback(reader.result))
-    reader.readAsDataURL(img)
-  }
-
   beforeUpload (file) {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
     if (!isJpgOrPng) {
@@ -179,44 +195,80 @@ class UserCenterFormRegi extends React.Component {
     return isJpgOrPng && isLt2M
   }
 
-  handleChange = info => {
+  handleAvatarChange = info => {
     console.log(info)
     if (info.file.status === 'uploading') {
-      this.setState({ loading: true })
+      this.setState({ avatarLoading: true })
       return
     }
     if (info.file.status === 'done') {
-      // Get this url from response in real world.
-      this.getBase64(info.file.originFileObj, imageUrl =>
-        this.setState({
-          imageUrl,
-          loading: false
-        })
-      )
+      if (info.file.response.success) {
+        this.setState({ avatarUrl: info.file.response.url })
+        this.regiFormRef.current.setFieldsValue({ avatar: info.file.response.url })
+        this.props.onCardUpdate({ avatar: info.file.response.url })
+      }
     }
   };
 
-  uploadButton=() => (
+  handleBgImgChange = info => {
+    if (info.file.status === 'uploading') {
+      this.setState({ bgImgLoading: true })
+      return
+    }
+    if (info.file.status === 'done') {
+      if (info.file.response.success) {
+        this.setState({ bgImgUrl: info.file.response.url, bgImgLoading: false })
+        this.regiFormRef.current.setFieldsValue({ bgImg: info.file.response.url })
+        this.props.onCardUpdate({ cardBg: info.file.response.url })
+      }
+    }
+  }
+
+  handleUnameChange = e => {
+    this.props.onCardUpdate({ uname: e.target.value || '抖音' })
+  }
+
+  handleReginChange = e => {
+    this.props.onCardUpdate({ regin: e.target.value || '地球村' })
+  }
+
+  uploadButtonAvatar= () => (
     <div>
-      {this.state.loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
+      {this.state.avatarLoading ? <LoadingOutlined /> : <PlusOutlined />}
+      <div style={{ marginTop: 8 }}>上传头像</div>
     </div>
   );
+
+  uploadButtonBgImg= () => (
+    <div>
+      {this.state.bgImgLoading ? <LoadingOutlined /> : <PlusOutlined />}
+      <div style={{ marginTop: 8 }}>上传背景图</div>
+    </div>
+  );
+
+  handleChange = () => {
+    (this.state.unameUnvali || this.state.emailUnvali) && this.setState({ emailUnvali: false, unameUnvali: false })
+  }
 
   render () {
     return (
       <div className='usercenter-form-card'>
         <Form
-          ref={this.formRef} name='control-ref' onFinish={this.handleOnFinish} class=''
-          initialValues={{
-            residence: ['zhejiang', 'hangzhou', 'xihu'],
-            prefix: '86'
-          }}
+          ref={this.regiFormRef} name='control-ref' onFinish={this.handleOnRegiSubmit}
+          scrollToFirstError
+          // onChange={this.handleChange}
         >
           <Form.Item
-            name='mail'
+            name='email'
             label='邮箱'
-            rules={[{ required: true, message: '请输入正确的邮箱地址' }]}
+            hasFeedback
+            {...this.state.emailUnvali
+              ? {
+                  validateStatus: 'error',
+                  help: '这个邮箱已经被使用过了'
+                }
+              : {}}
+            rules={[{ required: true, type: 'email', message: '请输入正确的邮箱地址' }]}
           >
             <Input style={{ width: '100%' }} />
           </Form.Item>
@@ -226,7 +278,7 @@ class UserCenterFormRegi extends React.Component {
             rules={[
               {
                 required: true,
-                message: 'Please input your password!'
+                message: '请输入密码'
               }
             ]}
             hasFeedback
@@ -242,14 +294,14 @@ class UserCenterFormRegi extends React.Component {
             rules={[
               {
                 required: true,
-                message: 'Please confirm your password!'
+                message: '请确认您的密码'
               },
               ({ getFieldValue }) => ({
                 validator (_, value) {
                   if (!value || getFieldValue('password') === value) {
                     return Promise.resolve()
                   }
-                  return Promise.reject(new Error('The two passwords that you entered do not match!'))
+                  return Promise.reject(new Error('两个密码不匹配'))
                 }
               })
             ]}
@@ -257,7 +309,7 @@ class UserCenterFormRegi extends React.Component {
             <Input.Password />
           </Form.Item>
           <Form.Item
-            name='nickname'
+            name='userName'
             label={
               <span>
                 昵称&nbsp;
@@ -266,31 +318,66 @@ class UserCenterFormRegi extends React.Component {
                 </Tooltip>
               </span>
         }
-            rules={[{ required: true, message: 'Please input your nickname!', whitespace: true }]}
+            hasFeedback
+            {...this.state.unameUnvali
+              ? {
+                  validateStatus: 'error',
+                  help: '你很有眼光，但是已经被人看中啦'
+                }
+              : {}}
+            rules={[{ required: true, message: '一个昵称可以更好的让别人记住你哦', whitespace: true }]}
           >
-            <Input />
+            <Input onChange={this.handleUnameChange} />
           </Form.Item>
           <Divider orientation='left'>个性信息</Divider>
           <Form.Item
-            name='birthday'
-            label='生日'
+            label='头像'
           >
-            <ImgCrop rotate>
+            <ImgCrop rotate shape='round' modalTitle='裁剪头像'>
               <Upload
-                name='avatar'
+                name='file'
                 listType='picture-card'
                 className='avatar-uploader'
                 showUploadList={false}
-                action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
+                action='https://qcmt57.fn.thelarkcloud.com/fileUpload'
                 beforeUpload={this.beforeUpload}
-                onChange={this.handleChange}
+                onChange={this.handleAvatarChange}
               >
-                {this.state.imageUrl ? <img src={this.state.imageUrl} alt='avatar' style={{ width: '100%' }} /> : this.uploadButton}
+                {this.state.avatarUrl ? <img src={this.state.avatarUrl} alt='avatar' style={{ width: '100%' }} /> : this.uploadButtonAvatar()}
               </Upload>
             </ImgCrop>
           </Form.Item>
           <Form.Item
-            name='birthday'
+            name='avatar'
+            style={{ display: 'none' }}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label='背景图'
+          >
+            <ImgCrop rotate modalTitle='裁剪卡片背景' aspect={16 / 9}>
+              <Upload
+                name='file'
+                listType='picture-card'
+                showUploadList={false}
+                action='https://qcmt57.fn.thelarkcloud.com/fileUpload'
+                beforeUpload={this.beforeUpload}
+                onChange={this.handleBgImgChange}
+                style={{ width: '50px', height: '28px' }}
+              >
+                {this.state.bgImgUrl ? <img src={this.state.bgImgUrl} alt='avatar' style={{ width: '100%' }} /> : this.uploadButtonBgImg()}
+              </Upload>
+            </ImgCrop>
+          </Form.Item>
+          <Form.Item
+            name='bgImg'
+            style={{ display: 'none' }}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name='birthDay'
             label='生日'
           >
             <DatePicker />
@@ -299,7 +386,7 @@ class UserCenterFormRegi extends React.Component {
             name='regin'
             label='所在地'
           >
-            <Input style={{ width: '100%' }} />
+            <Input style={{ width: '100%' }} onChange={this.handleReginChange} />
           </Form.Item>
           <Form.Item
             name='gender'
@@ -321,28 +408,6 @@ class UserCenterFormRegi extends React.Component {
             </Select>
           </Form.Item>
           <Form.Item
-            noStyle
-            shouldUpdate={(prevValues, currentValues) => prevValues.gender !== currentValues.gender}
-          >
-            {({ getFieldValue }) => {
-              return getFieldValue('gender') === 'other'
-                ? (
-                  <Form.Item
-                    name='customizeGender'
-                    label='Customize Gender'
-                    rules={[
-                      {
-                        required: true
-                      }
-                    ]}
-                  >
-                    <Input />
-                  </Form.Item>
-                  )
-                : null
-            }}
-          </Form.Item>
-          <Form.Item
             name='agreement'
             valuePropName='checked'
             rules={[
@@ -354,18 +419,27 @@ class UserCenterFormRegi extends React.Component {
             {...(this.tailFormItemLayout)}
           >
             <Checkbox>
-              我已阅读并同意 <a href=''>用户协议</a>
+              我已阅读并同意 <a href='#'>用户协议</a>
             </Checkbox>
           </Form.Item>
           <Form.Item {...(this.tailFormItemLayout)}>
-            <Button type='primary' htmlType='submit'>
-              Register
+            <Button type='primary' htmlType='submit' loading={this.state.formSubmiting}>
+              加入抖音
             </Button>
           </Form.Item>
+          <span>
+            已有帐号请 <a href='#' onClick={() => this.props.onModechange('login')}>登录</a>
+          </span>
         </Form>
       </div>
     )
   }
+}
+
+UserCenterFormRegi.propTypes = {
+  mode: PropTypes.string,
+  onCardUpdate: PropTypes.func,
+  onModechange: PropTypes.func
 }
 class UserCenterFormLogin extends React.Component {
   constructor (props) {
@@ -406,7 +480,8 @@ class UserCenterFormLogin extends React.Component {
         console.log(response)
         this.setState({ loading: false, disabled: true })
         if (!response.data.success) { throw (new Error('login failed')) }
-        localStorage.setItem('userToken', response.data.token)//  save token to local
+        localStorage.setItem('userId', response.data.userId)//  save token/Uid to local
+        localStorage.setItem('userToken', response.data.token)
         this.props.onModechange('loginSucs')
       }.bind(this))
       .catch(function (error) {
@@ -438,7 +513,7 @@ class UserCenterFormLogin extends React.Component {
             rules={[{ required: true, message: '请输入密码' }]}
           >
             <Input.Password
-              class='input'
+              className='input'
               prefix={<LockOutlined className='site-form-item-icon' />}
               placeholder='账号密码'
               iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
@@ -448,12 +523,12 @@ class UserCenterFormLogin extends React.Component {
             <Form.Item name='remember' valuePropName='checked' noStyle>
               <Checkbox>记住密码</Checkbox>
             </Form.Item>
-            <a className='login-form-forgot' href=''>
+            <a className='login-form-forgot' href='#'>
               忘记密码?
             </a>
           </Form.Item>
           <div className='login-form-btn'>
-            <Form.Item class='login-btn' noStyle>
+            <Form.Item className='login-btn' noStyle>
               <Button type='primary' htmlType='submit' loading={this.state.loading} disabled={this.props.mode !== 'login'}>
                 登录
               </Button>
@@ -461,7 +536,7 @@ class UserCenterFormLogin extends React.Component {
           </div>
           <div className='login-form-footer'>
             <Form.Item>
-              或 <a href=''>现在注册</a>
+              或 <a href='#' onClick={() => this.props.onModechange('regi')}>现在注册</a>
             </Form.Item>
           </div>
         </Form>
@@ -480,7 +555,7 @@ class UserCenterForm extends React.Component {
     super(props)
     const defaultAvatar = 'https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qcmt57/0bb96d4c05cc0a53_1612876378525.jpeg'
     const defaultBg = 'https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qcmt57/34d55516367c98c2_1612876325199.png'
-    this.state = { mode: 'login', cardBg: defaultBg, avatar: defaultAvatar, uname: '抖音', ages: '小鲜肉', local: '地球村' }
+    this.state = { mode: 'login', cardBg: defaultBg, avatar: defaultAvatar, uname: '抖音', ages: '小鲜肉', regin: '地球村' }
   }
 
   handleChangeMode = (mode) => {
@@ -501,6 +576,10 @@ class UserCenterForm extends React.Component {
     this.setState({ cardBg: props.data.bgImg, uname: props.data.uname, avatar: props.data.avatar })
   }
 
+  handleSetRegiCard = (props) => {
+    this.setState({ ...this.state, ...props })
+  }
+
   render () {
     let formItem = {}
     switch (this.state.mode) {
@@ -510,14 +589,14 @@ class UserCenterForm extends React.Component {
         break
       case 'regi':
       case 'regiSucs':
-        formItem = <UserCenterFormRegi />
+        formItem = <UserCenterFormRegi mode={this.state.mode} onCardUpdate={this.handleSetRegiCard} onModechange={this.handleChangeMode} />
     }
     return (
       <div className='usercenter-wrapper'>
         <div className='card-item'>
           <UserCenterCardLogin mode={this.state.mode} avatar={this.state.avatar} uname={this.state.uname} bg={this.state.cardBg} />
           <UserCenterCardLoginSucess mode={this.state.mode} bg={this.state.cardBg} avatar={this.state.avatar} uname={this.state.uname} />
-          <UserCenterCardRegi mode={this.state.mode} bg={this.state.cardBg} avatar={this.state.avatar} uname={this.state.uname} ages={this.state.ages} local={this.state.local} />
+          <UserCenterCardRegi mode={this.state.mode} bg={this.state.cardBg} avatar={this.state.avatar} uname={this.state.uname} ages={this.state.ages} regin={this.state.regin} />
         </div>
         {formItem}
       </div>
@@ -540,7 +619,7 @@ class UserCenter extends React.Component {
 }
 const ucenter = () => (
   <>
-    <video id='ucenterBgVedio' playsInline autoPlay='true' muted loop src='https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qcmt57/cbbf7b1a02c400d6_1612887218358.mp4' data-object-fit='true' type='video/mp4' poster='https://sf1-scmcdn-tos.pstatp.com/goofy/ies/douyin_home_web/imgs/1.9e1ce889.jpg'>抱歉，您的浏览器不支持内嵌视频</video>
+    <video id='ucenterBgVedio' playsInline autoPlay muted loop src='https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qcmt57/cbbf7b1a02c400d6_1612887218358.mp4' data-object-fit='true' type='video/mp4' poster='https://sf1-scmcdn-tos.pstatp.com/goofy/ies/douyin_home_web/imgs/1.9e1ce889.jpg'>抱歉，您的浏览器不支持内嵌视频</video>
     <div className='wrapper'>
       <UserCenter />
     </div>

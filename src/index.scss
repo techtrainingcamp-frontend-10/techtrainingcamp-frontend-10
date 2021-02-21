@@ -17,3 +17,13 @@ a {
   text-decoration: none;
   color: rgba(255, 255, 255, 0.5);
 }
+.danmu-switch{
+  display: flex;
+  margin-right: 15px !important;
+  &.danmu-switch-active{
+    background-color: #1890ff;
+  }
+  span.txt{
+    color:#1890ff;
+  }
+}

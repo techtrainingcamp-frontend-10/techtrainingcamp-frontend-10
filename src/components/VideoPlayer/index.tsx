@@ -43,7 +43,7 @@ class VideoPlayer extends React.Component<IProps, IState> {
     }).then((response:any) => {
       if (response.data.success) {
         this.setState({ newDmk: '' })
-        this.ChildPlayer && this.ChildPlayer.appendDmk({ ...response.data.data, start: (response.data.data.start + 1500) })
+        this.ChildPlayer && this.ChildPlayer.appendDmk({ ...response.data.data, start: (this.state.timeStamp + 1500) })
       }
     }).catch(err => console.log(err)).finally(() => { this.setState({ isSendingDmk: false }) })
   }
