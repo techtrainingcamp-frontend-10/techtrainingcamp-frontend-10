@@ -33,7 +33,7 @@ class Home extends React.Component<IProps, IState> {
   async componentDidMount () {
     try {
       const res = await getVideoList()
-      const videoList: Array<IVideo> = res.data.videoList
+      const videoList: Array<IVideo> = res.data.success.result
       this.setState({
         videoList
       })
@@ -82,7 +82,7 @@ class Home extends React.Component<IProps, IState> {
           >
             {inPageVideoList.map((video, index) => {
               return (
-                <SwiperSlide key={video.id}>
+                <SwiperSlide key={video._id}>
                   <VideoPlayer video={video} active={activeIndex === index} />
                 </SwiperSlide>
               )

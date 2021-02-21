@@ -6,7 +6,8 @@ import classNames from 'classnames'
 import { Button } from 'antd'
 import { UpCircleOutlined } from '@ant-design/icons'
 import VliveComment from '../Vlivecomment'
-import axios from 'axios'
+import { createDanmuku } from '../../api/danmuku'
+
 interface IProps {
   video: IVideo;
   active?: boolean;
@@ -32,14 +33,12 @@ class VideoPlayer extends React.Component<IProps, IState> {
   handleSendDmk = (e:any):void => {
     if (!this.state.newDmk) { return }
     this.setState({ isSendingDmk: true })
-    axios.post('https://qcmt57.fn.thelarkcloud.com/createDanmuku', {
-      userId: '1612779773437',
-      vedioId: '602113570d5dfa02d0d87008',
+    createDanmuku({
+      vedioId: this.props.video._id,
       content: this.state.newDmk,
       size: 20,
       start: this.state.timeStamp,
-      color: '#001835',
-      token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxNjEyNzc5NzczNDM3IiwiaWF0IjoxNjEyNzgwMDE0fQ.J27ujArwYmr2b7Muv2wI3FEs1YbXO8Ce2llju6dMzjo'
+      color: '#001835'
     }).then((response:any) => {
       if (response.data.success) {
         this.setState({ newDmk: '' })
@@ -53,18 +52,22 @@ class VideoPlayer extends React.Component<IProps, IState> {
   }
 
   render () {
-    const { id, url, author, description, tagList, likes, comments } = this.props.video
+    const { _id, videoId, url, ownerId, likeCounts, commentsCount } = this.props.video
     const { active } = this.props
+
+    // TODO: wait to add
+    const description = '无'
+    const tagList = ['1', '2', '3']
 
     return (
       <div className={classNames(styles.video, { 'video-avtice': active })}>
-        <Player id={id.toString()} url={url} type='video' active={active} onTimeChange={this.handleTimeChange} onRef={(c:any) => { this.ChildPlayer = c }} />
+        <Player _id={_id} id={videoId} url={url} type='video' active={active} onTimeChange={this.handleTimeChange} onRef={(c:any) => { this.ChildPlayer = c }} />
         <div className={styles.info}>
           <div className={styles.liveComents}>
-            <VliveComment />
+            <VliveComment id={videoId} />
           </div>
           <div className={styles.author}>
-            @{author}
+            @{ownerId}
           </div>
           <div className={styles.description}>
             {description}
@@ -82,11 +85,11 @@ class VideoPlayer extends React.Component<IProps, IState> {
         <div className={styles.action}>
           <div className={styles.like}>
             <div className={styles['like-icon']} />
-            <div className={styles['like-number']}>{likes}</div>
+            <div className={styles['like-number']}>{likeCounts}</div>
           </div>
           <div className={styles.comment}>
             <div className={styles['comment-icon']} />
-            <div className={styles['comment-number']}>{comments}</div>
+            <div className={styles['comment-number']}>{commentsCount}</div>
           </div>
         </div>
       </div>

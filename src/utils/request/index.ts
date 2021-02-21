@@ -1,4 +1,5 @@
 import http from 'axios'
+import { getToken, getUserId } from '../auth'
 
 http.defaults.baseURL = process.env.REACT_APP_API
 
@@ -8,6 +9,15 @@ require('../../mock/api')
 
 // 请求拦截器
 http.interceptors.request.use(function (config) {
+  const userId = getUserId()
+  const token = getToken()
+
+  if (userId && token) {
+    if (!config.data) config.data = {}
+    config.data.userId = userId
+    config.data.token = token
+  }
+
   return config
 }, function (error) {
   return Promise.reject(error)

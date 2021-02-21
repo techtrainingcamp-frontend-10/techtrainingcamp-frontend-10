@@ -9,6 +9,7 @@ import axios from 'axios'
 interface IProps {
   type: 'video'|'live';
   id: string;
+  _id: string;
   url: string;
   active?: boolean;
   onRef?: any;
@@ -39,7 +40,7 @@ class Player extends React.Component<IProps, IState> {
   }
 
   initPlayer () {
-    const { type, id, url } = this.props
+    const { type, id, _id, url } = this.props
     console.log('start')
     console.log(this.state.dmkList)
     if (type === 'video') {
@@ -64,7 +65,7 @@ class Player extends React.Component<IProps, IState> {
           }
         }
       })
-      this.initDmk('602113570d5dfa02d0d87008', this.player)
+      this.initDmk(_id, this.player)
       this.player.on('timeupdate', (e) => {
         this.props.onTimeChange(Math.round(parseFloat(e.maxPlayedTime) * 1000))
       })
@@ -88,8 +89,8 @@ class Player extends React.Component<IProps, IState> {
     console.log(`[${id}] Player inited.`, this.player)
   }
 
-  initDmk (vedioId: string, player: any) {
-    axios.post('https://qcmt57.fn.thelarkcloud.com/getDanmuku', { vedioId: vedioId }).then(response => {
+  initDmk (_id: string, player: any) {
+    axios.post('https://qcmt57.fn.thelarkcloud.com/getDanmuku', { vedioId: _id }).then(response => {
       console.log(response.data.dmkList)
       this.setState({ dmkList: response.data.dmkList })
       response.data.dmkList.forEach((dmk: any) => {

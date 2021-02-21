@@ -16,10 +16,10 @@ class MypageCover extends React.Component {
 }
 const NumberInfo = ({ num, discribe }) => {
   return (
-    <text lcass='number-info'>
+    <Text lcass='number-info'>
       <span className='number-info-num'>{num}</span>
       {discribe}
-    </text>
+    </Text>
 
   )
 }
