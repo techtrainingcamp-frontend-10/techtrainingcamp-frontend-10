@@ -6,7 +6,8 @@ import classNames from 'classnames'
 import { Button } from 'antd'
 import { UpCircleOutlined } from '@ant-design/icons'
 import VliveComment from '../Vlivecomment'
-import axios from 'axios'
+import { createDanmuku } from '../../api/danmuku'
+
 interface IProps {
   video: IVideo;
   active?: boolean;
@@ -32,7 +33,7 @@ class VideoPlayer extends React.Component<IProps, IState> {
   handleSendDmk = (e:any):void => {
     if (!this.state.newDmk) { return }
     this.setState({ isSendingDmk: true })
-    axios.post('https://qcmt57.fn.thelarkcloud.com/createDanmuku', {
+    createDanmuku({
       vedioId: this.props.video._id,
       content: this.state.newDmk,
       size: 20,
@@ -63,7 +64,7 @@ class VideoPlayer extends React.Component<IProps, IState> {
         <Player id={_id} url={url} type='video' active={active} onTimeChange={this.handleTimeChange} onRef={(c:any) => { this.ChildPlayer = c }} />
         <div className={styles.info}>
           <div className={styles.liveComents}>
-            <VliveComment />
+            <VliveComment id={_id} />
           </div>
           <div className={styles.author}>
             @{ownerId}

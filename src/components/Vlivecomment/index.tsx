@@ -2,9 +2,7 @@ import React from 'react'
 import './index.scss'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { ICommentProps } from '../Vcomment'
-import axios from 'axios'
-const userId = '1612779773437'
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxNjEyNzc5NzczNDM3IiwiaWF0IjoxNjEyNzgwMDE0fQ.J27ujArwYmr2b7Muv2wI3FEs1YbXO8Ce2llju6dMzjo'
+import { getComment } from '../../api/comment'
 
 // interface VliveCommentProps{
 //   uname: string,
@@ -43,7 +41,12 @@ interface commentResponse{
   userItem: any,
   videoItem: any
 }
-class VliveCommentWrapper extends React.Component<any, VliveCommentState> {
+
+interface IVliveCommentWrapperProps {
+  id: string;
+}
+
+class VliveCommentWrapper extends React.Component<IVliveCommentWrapperProps, VliveCommentState> {
   demoo:ICommentProps = { id: 'name', content: 'ikuikuikuikuikuikuikuikuikuikuikuikuikuikuikuikuikuikuikuikuikuikuikuikuikuikuikuikuikuikuikuiku', pname: '11', ptime: '1', like: false, avatar: 's', likeCount: 1 }
   demomo:ICommentProps[] = [this.demoo]
   wrapper: HTMLDivElement | null | undefined
@@ -53,7 +56,7 @@ class VliveCommentWrapper extends React.Component<any, VliveCommentState> {
   }
 
   componentDidMount () {
-    this.fetchComments({ videoId: '1612780375771' })
+    this.fetchComments({ videoId: this.props.id })
     setInterval(():void => {
       if (this.state.isPause) { return }
       const comments = this.state.displayComents
@@ -77,10 +80,8 @@ class VliveCommentWrapper extends React.Component<any, VliveCommentState> {
   }
 
   fetchComments (videoInfo:commentRequest):any {
-    axios.post('https://qcmt57.fn.thelarkcloud.com/getComment', {
-      userId: userId,
-      videoID: videoInfo.videoId,
-      token: token
+    getComment({
+      videoID: videoInfo.videoId
     })
       .then((response:any):void => {
         let data = response.data
