@@ -96,7 +96,7 @@ class UserCenterCardRegi extends React.Component {
   }
 
   render () {
-    return (
+    return this.props.mode === 'regi' && (
       <div className='usercenter-card -register'>
         <div className='usercenter-card-background'>
           <img
@@ -126,6 +126,7 @@ class UserCenterCardRegi extends React.Component {
   }
 }
 UserCenterCardRegi.propTypes = {
+  mode: PropTypes.string,
   bg: PropTypes.string,
   avatar: PropTypes.string,
   ages: PropTypes.string,
@@ -396,14 +397,16 @@ class UserCenterFormLogin extends React.Component {
 
   handleLogin = (loginData) => {
     console.log(loginData)
-    this.setState({ loading: true })
+    this.setState({ loading: true, showMsg: false })
     axios.post('https://qcmt57.fn.thelarkcloud.com/login', {
-      userName: 'zhangsan',
-      password: '123'
+      userName: loginData.username,
+      password: loginData.password
     })
       .then(function (response) {
         console.log(response)
         this.setState({ loading: false, disabled: true })
+        if (!response.data.success) { throw (new Error('login failed')) }
+        localStorage.setItem('userToken', response.data.token)//  save token to local
         this.props.onModechange('loginSucs')
       }.bind(this))
       .catch(function (error) {
@@ -415,7 +418,7 @@ class UserCenterFormLogin extends React.Component {
   render () {
     return (
       <div className='usercenter-form-card usercenter-form-login'>
-        {this.state.showMsg ? (<Alert message='帐号/密码错误，请确认后重试' type='error' style='margin-bottom:{5px}' showIcon />) : ''}
+        {this.state.showMsg ? (<Alert message='帐号/密码错误，请确认后重试' type='error' showIcon />) : ''}
         <Form
           name='normal_login'
           id='usercenter-form-card-content'

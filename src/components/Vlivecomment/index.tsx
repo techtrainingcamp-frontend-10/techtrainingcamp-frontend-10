@@ -49,7 +49,7 @@ class VliveCommentWrapper extends React.Component<any, VliveCommentState> {
   wrapper: HTMLDivElement | null | undefined
   constructor (props:any) {
     super(props)
-    this.state = { displayIndex: 0, bufferSize: 20, displayComents: [], allComments: [], isPause: false }
+    this.state = { displayIndex: 0, bufferSize: 2, displayComents: [], allComments: [], isPause: false }
   }
 
   componentDidMount () {
@@ -59,7 +59,7 @@ class VliveCommentWrapper extends React.Component<any, VliveCommentState> {
       const comments = this.state.displayComents
       this.state.displayIndex - this.state.bufferSize >= 0 && delete comments[this.state.displayIndex - this.state.bufferSize]
       this.setState({ displayComents: comments.concat(this.state.allComments[this.state.displayIndex % this.state.allComments.length]), displayIndex: (this.state.displayIndex + 1) })
-      this.scrollToBottom()
+      //  this.scrollToBottom()
     }, 1500)
   }
 

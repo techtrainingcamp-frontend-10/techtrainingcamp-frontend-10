@@ -115,7 +115,7 @@ class Player extends React.Component<IProps, IState> {
   componentDidUpdate () {
     const { id, active } = this.props
 
-    console.log(`[${id}] Player updated.`, this.player, active)
+    // console.log(`[${id}] Player updated.`, this.player, active)
 
     if (active) {
       if (!this.player) {

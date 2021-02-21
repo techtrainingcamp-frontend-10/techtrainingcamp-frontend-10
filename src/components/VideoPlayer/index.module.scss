@@ -17,7 +17,12 @@ $top-z-index : 10000;
     font-weight: bold;
     line-height: 2;
   }
-
+  .liveComents{
+    position: relative;
+    height: 10vh;
+    width: auto;
+    display: block;
+  }
   .description {
     display: inline;
   }

@@ -5,6 +5,7 @@ import { IVideo } from '../../types/video'
 import classNames from 'classnames'
 import { Button } from 'antd'
 import { UpCircleOutlined } from '@ant-design/icons'
+import VliveComment from '../Vlivecomment'
 import axios from 'axios'
 interface IProps {
   video: IVideo;
@@ -21,7 +22,6 @@ class VideoPlayer extends React.Component<IProps, IState> {
   ChildPlayer: any
   handleNewDmkChange = (e: any):void => {
     this.setState({ newDmk: e.target.value })
-    console.log(e.target.value)
   }
 
   constructor (props: IProps) {
@@ -30,7 +30,6 @@ class VideoPlayer extends React.Component<IProps, IState> {
   }
 
   handleSendDmk = (e:any):void => {
-    console.log('he')
     if (!this.state.newDmk) { return }
     this.setState({ isSendingDmk: true })
     axios.post('https://qcmt57.fn.thelarkcloud.com/createDanmuku', {
@@ -61,6 +60,9 @@ class VideoPlayer extends React.Component<IProps, IState> {
       <div className={classNames(styles.video, { 'video-avtice': active })}>
         <Player id={id.toString()} url={url} type='video' active={active} onTimeChange={this.handleTimeChange} onRef={(c:any) => { this.ChildPlayer = c }} />
         <div className={styles.info}>
+          <div className={styles.liveComents}>
+            <VliveComment />
+          </div>
           <div className={styles.author}>
             @{author}
           </div>
@@ -74,7 +76,7 @@ class VideoPlayer extends React.Component<IProps, IState> {
           </div>
           <div className={styles.danmu}>
             <input value={this.state.newDmk} onChange={this.handleNewDmkChange} placeholder='发个友善的弹幕见证当下' />
-            <Button type='primary' shape='round' icon={<UpCircleOutlined />} size='large' onClick={this.handleSendDmk} loading={this.state.isSendingDmk} />
+            <Button type='primary' shape='circle' icon={<UpCircleOutlined />} size='large' onClick={this.handleSendDmk} loading={this.state.isSendingDmk} />
           </div>
         </div>
         <div className={styles.action}>
