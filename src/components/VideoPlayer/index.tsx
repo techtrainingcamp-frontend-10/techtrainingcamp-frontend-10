@@ -52,7 +52,7 @@ class VideoPlayer extends React.Component<IProps, IState> {
   }
 
   render () {
-    const { _id, url, ownerId, likeCounts, commentsCount } = this.props.video
+    const { _id, videoId, url, ownerId, likeCounts, commentsCount } = this.props.video
     const { active } = this.props
 
     // TODO: wait to add
@@ -61,10 +61,10 @@ class VideoPlayer extends React.Component<IProps, IState> {
 
     return (
       <div className={classNames(styles.video, { 'video-avtice': active })}>
-        <Player id={_id} url={url} type='video' active={active} onTimeChange={this.handleTimeChange} onRef={(c:any) => { this.ChildPlayer = c }} />
+        <Player _id={_id} id={videoId} url={url} type='video' active={active} onTimeChange={this.handleTimeChange} onRef={(c:any) => { this.ChildPlayer = c }} />
         <div className={styles.info}>
           <div className={styles.liveComents}>
-            <VliveComment id={_id} />
+            <VliveComment id={videoId} />
           </div>
           <div className={styles.author}>
             @{ownerId}

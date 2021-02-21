@@ -1,5 +1,6 @@
 export interface IVideo {
   _id: string;
+  videoId: string;
   commentsCount: number;
   createdAt: string;
   likeCounts: number,

@@ -13,12 +13,12 @@ interface IState {
 
 class LivePlayer extends React.Component<IProps, IState> {
   render () {
-    const { _id, url } = this.props.video
+    const { _id, videoId, url } = this.props.video
 
     return (
       <div className='live'>
         <Top />
-        <Player id={_id} url={url} type='live' />
+        <Player _id={_id} id={videoId} url={url} type='live' />
       </div>
     )
   }

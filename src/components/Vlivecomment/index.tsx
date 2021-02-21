@@ -81,7 +81,7 @@ class VliveCommentWrapper extends React.Component<IVliveCommentWrapperProps, Vli
 
   fetchComments (videoInfo:commentRequest):any {
     getComment({
-      videoID: videoInfo.videoId
+      videoId: videoInfo.videoId
     })
       .then((response:any):void => {
         let data = response.data
