@@ -5,7 +5,7 @@ import ImgCrop from 'antd-img-crop'
 import axios from 'axios'
 import './Ucenter.scss'
 import PropTypes from 'prop-types'
-import { setToken } from '../../utils/auth'
+import { setToken, setUserId } from '../../utils/auth'
 import { useHistory } from 'react-router-dom'
 const { Option } = Select
 
@@ -409,6 +409,7 @@ class UserCenterFormLogin extends React.Component {
         this.setState({ loading: false, disabled: true })
         if (!response.data.success) { throw (new Error('login failed')) }
         setToken(response.data.token) // save token to local
+        setUserId(response.data.userId)
         this.props.onModechange('loginSucs')
         console.log(this.props)
         this.props.onLoginSuccess()
