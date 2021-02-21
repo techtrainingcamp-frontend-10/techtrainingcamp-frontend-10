@@ -5,6 +5,8 @@ import ImgCrop from 'antd-img-crop'
 import axios from 'axios'
 import './Ucenter.scss'
 import PropTypes from 'prop-types'
+import { setToken } from '../../utils/auth'
+import { useHistory } from 'react-router-dom'
 const { Option } = Select
 
 class UserCenterCardLogin extends React.Component {
@@ -406,8 +408,10 @@ class UserCenterFormLogin extends React.Component {
         console.log(response)
         this.setState({ loading: false, disabled: true })
         if (!response.data.success) { throw (new Error('login failed')) }
-        localStorage.setItem('userToken', response.data.token)//  save token to local
+        setToken(response.data.token) // save token to local
         this.props.onModechange('loginSucs')
+        console.log(this.props)
+        this.props.onLoginSuccess()
       }.bind(this))
       .catch(function (error) {
         this.setState({ loading: false, showMsg: true })
@@ -473,8 +477,10 @@ UserCenterFormLogin.propTypes = {
   onCardUpdate: PropTypes.func,
   onCardReset: PropTypes.func,
   onModechange: PropTypes.func,
-  mode: PropTypes.string
+  mode: PropTypes.string,
+  onLoginSuccess: PropTypes.func
 }
+
 class UserCenterForm extends React.Component {
   constructor (props) {
     super(props)
@@ -501,12 +507,18 @@ class UserCenterForm extends React.Component {
     this.setState({ cardBg: props.data.bgImg, uname: props.data.uname, avatar: props.data.avatar })
   }
 
+  handleLoginSuccess = () => {
+    setTimeout(() => {
+      this.props.history.push('/')
+    }, 1000)
+  }
+
   render () {
     let formItem = {}
     switch (this.state.mode) {
       case 'login':
       case 'loginSucs':
-        formItem = <UserCenterFormLogin mode={this.state.mode} onCardUpdate={this.handleSetLoginCard} onCardReset={this.handleResetLoginCard} onModechange={this.handleChangeMode} />
+        formItem = <UserCenterFormLogin onLoginSuccess={this.handleLoginSuccess} mode={this.state.mode} onCardUpdate={this.handleSetLoginCard} onCardReset={this.handleResetLoginCard} onModechange={this.handleChangeMode} />
         break
       case 'regi':
       case 'regiSucs':
@@ -524,6 +536,10 @@ class UserCenterForm extends React.Component {
     )
   }
 }
+UserCenterForm.propTypes = {
+  history: PropTypes.object
+}
+
 class UserCenter extends React.Component {
   constructor (props) {
     super(props)
@@ -533,18 +549,25 @@ class UserCenter extends React.Component {
   render () {
     return (
       <>
-        <UserCenterForm />
+        <UserCenterForm history={this.props.history} />
       </>
     )
   }
 }
-const ucenter = () => (
-  <>
-    <video id='ucenterBgVedio' playsInline autoPlay muted loop src='https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qcmt57/cbbf7b1a02c400d6_1612887218358.mp4' data-object-fit='true' type='video/mp4' poster='https://sf1-scmcdn-tos.pstatp.com/goofy/ies/douyin_home_web/imgs/1.9e1ce889.jpg'>抱歉，您的浏览器不支持内嵌视频</video>
-    <div className='wrapper'>
-      <UserCenter />
-    </div>
-  </>
-)
+UserCenter.propTypes = {
+  history: PropTypes.object
+}
+
+const ucenter = () => {
+  const history = useHistory()
+  return (
+    <>
+      <video id='ucenterBgVedio' playsInline autoPlay muted loop src='https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qcmt57/cbbf7b1a02c400d6_1612887218358.mp4' data-object-fit='true' type='video/mp4' poster='https://sf1-scmcdn-tos.pstatp.com/goofy/ies/douyin_home_web/imgs/1.9e1ce889.jpg'>抱歉，您的浏览器不支持内嵌视频</video>
+      <div className='wrapper'>
+        <UserCenter history={history} />
+      </div>
+    </>
+  )
+}
 
 export default ucenter
