@@ -61,7 +61,8 @@ class VliveCommentWrapper extends React.Component<IVliveCommentWrapperProps, Vli
       if (this.state.isPause) { return }
       const comments = this.state.displayComents
       this.state.displayIndex - this.state.bufferSize >= 0 && delete comments[this.state.displayIndex - this.state.bufferSize]
-      this.setState({ displayComents: comments.concat(this.state.allComments[this.state.displayIndex % this.state.allComments.length]), displayIndex: (this.state.displayIndex + 1) })
+      const nextCmt = this.state.allComments[this.state.displayIndex % this.state.allComments.length]
+      nextCmt && this.setState({ displayComents: comments.concat(nextCmt), displayIndex: (this.state.displayIndex + 1) })
       //  this.scrollToBottom()
     }, 1500)
   }
