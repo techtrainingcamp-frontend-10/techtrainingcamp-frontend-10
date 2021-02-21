@@ -64,7 +64,7 @@ class Player extends React.Component<IProps, IState> {
           }
         }
       })
-      this.initDmk('602113570d5dfa02d0d87008', this.player)
+      this.initDmk(id, this.player)
       this.player.on('timeupdate', (e) => {
         this.props.onTimeChange(Math.round(parseFloat(e.maxPlayedTime) * 1000))
       })

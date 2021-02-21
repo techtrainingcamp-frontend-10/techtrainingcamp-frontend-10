@@ -33,13 +33,11 @@ class VideoPlayer extends React.Component<IProps, IState> {
     if (!this.state.newDmk) { return }
     this.setState({ isSendingDmk: true })
     axios.post('https://qcmt57.fn.thelarkcloud.com/createDanmuku', {
-      userId: '1612779773437',
-      vedioId: '602113570d5dfa02d0d87008',
+      vedioId: this.props.video._id,
       content: this.state.newDmk,
       size: 20,
       start: this.state.timeStamp,
-      color: '#001835',
-      token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxNjEyNzc5NzczNDM3IiwiaWF0IjoxNjEyNzgwMDE0fQ.J27ujArwYmr2b7Muv2wI3FEs1YbXO8Ce2llju6dMzjo'
+      color: '#001835'
     }).then((response:any) => {
       if (response.data.success) {
         this.setState({ newDmk: '' })
