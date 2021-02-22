@@ -52,7 +52,7 @@ class VideoPlayer extends React.Component<IProps, IState> {
   }
 
   render () {
-    const { _id, videoId, url, ownerId, likeCounts, commentsCount, description, tags } = this.props.video
+    const { _id, videoId, url, User, likeCounts, commentsCount, description, tags } = this.props.video
     const { active } = this.props
 
     return (
@@ -63,7 +63,7 @@ class VideoPlayer extends React.Component<IProps, IState> {
             <VliveComment id={videoId} />
           </div>
           <div className={styles.author}>
-            @{ownerId}
+            @{User[0].userName}
           </div>
           <div className={styles.description}>
             {description}

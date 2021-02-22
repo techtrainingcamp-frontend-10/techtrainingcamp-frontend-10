@@ -1,3 +1,12 @@
+export interface IUser {
+  createdAt: string;
+  password: string;
+  updatedAt: string;
+  userId: string;
+  userName: string;
+  _id: string;
+}
+
 export interface IVideo {
   _id: string;
   videoId: string;
@@ -11,4 +20,5 @@ export interface IVideo {
   url: string;
   description: string;
   tags: Array<string>;
+  User: Array<IUser>;
 }
