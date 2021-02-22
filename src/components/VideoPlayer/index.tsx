@@ -87,7 +87,7 @@ class VideoPlayer extends React.Component<IProps, IState> {
           </div>
           <div className={styles.danmu}>
             <input value={this.state.newDmk} onChange={this.handleNewDmkChange} placeholder='发个友善的弹幕见证当下' />
-            <Button type='primary' shape='circle' icon={<UpCircleOutlined />} size='large' onClick={this.handleSendDmk} loading={this.state.isSendingDmk} />
+            <Button type='primary' shape='circle' icon={<UpCircleOutlined />} size='middle' onClick={this.handleSendDmk} loading={this.state.isSendingDmk} />
           </div>
         </div>
         <div className={styles.action}>

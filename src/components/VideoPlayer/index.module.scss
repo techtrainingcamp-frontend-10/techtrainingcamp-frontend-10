@@ -1,4 +1,5 @@
 $top-z-index : 10000;
+
 .video {
   position: relative;
 }
@@ -13,16 +14,19 @@ $top-z-index : 10000;
   max-width: 75vw;
   text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
   z-index: $top-z-index;
+
   .author {
     font-weight: bold;
     line-height: 2;
   }
-  .liveComents{
+
+  .liveComents {
     position: relative;
     height: 10vh;
     width: auto;
     display: block;
   }
+
   .description {
     display: inline;
   }
@@ -35,21 +39,35 @@ $top-z-index : 10000;
       margin-left: 8px;
     }
   }
-  .danmu{
+
+  .danmu {
     z-index: 9999;
-    width:90%;
-    margin:auto;
+    width: 90%;
     display: flex;
     flex-direction: row;
     margin-top: 2px;
     align-items: center;
-    input{
-      width: 95%;
-      margin-right: 15px;
+
+    input {
+      margin-right: 10px;
       color: grey;
-      height: 35px;
+      height: 30px;
       border-radius: 35px;
-      padding-left: 5px;
+      padding: 0 10px;
+      opacity: 0.5;
+      transition: opacity 0.3s ease-in-out;
+      background: #535252ba;
+      color: #ffffff;
+      border: none;
+      outline-style: none;
+
+      &::-webkit-input-placeholder {
+        color: #b9b9b9;
+      }
+
+      &:focus {
+        opacity: 1;
+      }
     }
   }
 }
@@ -60,6 +78,7 @@ $top-z-index : 10000;
   right: 10px;
   max-width: 20vw;
   z-index: $top-z-index;
+
   .like,
   .comment {
     margin-bottom: 15px;
@@ -67,6 +86,7 @@ $top-z-index : 10000;
     flex-direction: column;
     align-items: center;
     filter: drop-shadow(0 0 3px #484848);
+
     &-icon {
       width: 40px;
       height: 40px;
