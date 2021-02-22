@@ -14,7 +14,7 @@ class Top extends React.Component<IProps, IState> {
       <div className={styles.top}>
         <div className={styles.left}>
           <Link to='/live'>
-            <div className='live-btn'>直播</div>
+            <div style={{ color: '#ffffff' }}>直播</div>
           </Link>
         </div>
         <div className={styles.middle}>
