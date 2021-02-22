@@ -3,7 +3,7 @@ import {
   Switch,
   Route
 } from 'react-router-dom'
-
+import AuthRoute from './utils/router/authRoute'
 import Home from './views/Home/index'
 import Live from './views/Live/index'
 import Ucenter from './views/Ucenter/Ucenter'
@@ -23,10 +23,10 @@ export default function BasicExample () {
           of them to render at a time
         */}
         <Switch>
-          <Route exact path='/' component={Home} />
-          <Route path='/live' component={Live} />
+          <AuthRoute exact path='/' component={Home} />
+          <AuthRoute path='/live' component={Live} />
           <Route path='/ucenter' history={history} component={Ucenter} />
-          <Route path='/mypage' component={Mypage} />
+          <AuthRoute path='/mypage' component={Mypage} />
           <Route path='/dev' component={Vcomment} videoId='1612780375771' />
           <Route path='/dev2' component={VliveComment} />
         </Switch>
