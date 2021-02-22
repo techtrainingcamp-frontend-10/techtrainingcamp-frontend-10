@@ -88,7 +88,7 @@ class VliveCommentWrapper extends React.Component<IVliveCommentWrapperProps, Vli
         let data = response.data
         if (!data.success) { return }
         data = data.data
-        data = data.map((comment:commentResponse): ICommentProps => { return { id: comment._id, avatar: 'null', pname: comment.userItem.userName, ptime: comment.createdAt.toString(), likeCount: comment.liked, like: false, content: comment.comment } })
+        data = data.map((comment:commentResponse): ICommentProps => { return { id: comment._id, avatar: 'null', pname: comment?.userItem?.userName, ptime: comment.createdAt.toString(), likeCount: comment.liked, like: false, content: comment.comment } })
         this.setState({ allComments: data })
       })
       .catch(function (error) {
