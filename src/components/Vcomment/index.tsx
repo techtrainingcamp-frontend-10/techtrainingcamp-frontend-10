@@ -219,7 +219,7 @@ class VcommentDrawer extends React.Component<IProps, IState> {
         if (!data.success) { return }
         data = data.data
         console.log(data)
-        data = data.map((comment:commentResponse): ICommentProps => { return { id: comment._id, avatar: 'null', pname: comment.userItem.userName, ptime: dayjs(comment.createdAt).fromNow(), likeCount: comment.liked, like: false, content: comment.comment } })
+        data = data.map((comment:commentResponse): ICommentProps => { return { id: comment._id, avatar: 'null', pname: comment?.userItem?.userName, ptime: dayjs(comment.createdAt).fromNow(), likeCount: comment.liked, like: false, content: comment.comment } })
         console.log(data)
         this.setState({ comments: data })
       })
