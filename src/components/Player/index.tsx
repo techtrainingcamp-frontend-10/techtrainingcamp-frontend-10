@@ -71,7 +71,7 @@ class Player extends React.Component<IProps, IState> {
       })
     } else if (type === 'live') {
       this.player = new HlsPlayer({
-        id: id,
+        id: `${type}${id}`,
         width: window.innerWidth,
         height: window.innerHeight,
         url: url,
