@@ -59,7 +59,7 @@ $top-z-index : 10000;
   bottom: 150px;
   right: 10px;
   max-width: 20vw;
-
+  z-index: $top-z-index;
   .like,
   .comment {
     margin-bottom: 15px;
@@ -67,7 +67,6 @@ $top-z-index : 10000;
     flex-direction: column;
     align-items: center;
     filter: drop-shadow(0 0 3px #484848);
-    z-index: $top-z-index;
     &-icon {
       width: 40px;
       height: 40px;

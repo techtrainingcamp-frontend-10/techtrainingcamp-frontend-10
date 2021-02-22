@@ -144,13 +144,14 @@ class VcommentEditor extends React.Component<IPropsVcommentEditor, any> {
 }
 
 interface IProps {
-  videoId: string
+  videoId: string,
+  visible: boolean,
+  onCmtClose: any
   }
 
   interface IState {
     showEmojiModal: boolean,
     vid: string,
-    visible: boolean,
     placement: string,
     count: number,
     isTypeing: boolean,
@@ -211,7 +212,7 @@ class VcommentDrawer extends React.Component<IProps, IState> {
       likeCount: 1,
       content: 'string'
     }
-    this.state = { showEmojiModal: true, vid: this.props.videoId, visible: true, placement: 'left', count: 1, isTypeing: false, isEmojing: false, comments: [mock, mock, mock], newComment: '', isSubmitting: false }
+    this.state = { showEmojiModal: false, vid: this.props.videoId, placement: 'left', count: 1, isTypeing: false, isEmojing: false, comments: [mock, mock, mock], newComment: '', isSubmitting: false }
     const request: commentRequest = { videoId: this.props.videoId }
     this.fetchComments(request)
   }
@@ -236,16 +237,8 @@ class VcommentDrawer extends React.Component<IProps, IState> {
       })
   }
 
-  showDrawer = () => {
-    this.setState({
-      visible: true
-    })
-  };
-
   handleClose = () => {
-    this.setState({
-      visible: false
-    })
+    this.props.onCmtClose(false)
   };
 
   handleSubmit = () => {
@@ -314,7 +307,7 @@ class VcommentDrawer extends React.Component<IProps, IState> {
           placement='bottom'
           closable
           onClose={this.handleClose}
-          visible={this.state.visible}
+          visible={this.props.visible}
           key={this.state.placement}
           afterVisibleChange={this.drawerChange}
           footer={

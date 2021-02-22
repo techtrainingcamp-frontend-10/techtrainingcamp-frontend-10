@@ -6,6 +6,7 @@ import classNames from 'classnames'
 import { Button } from 'antd'
 import { UpCircleOutlined } from '@ant-design/icons'
 import VliveComment from '../Vlivecomment'
+import VcommentDrawer from '../Vcomment'
 import { createDanmuku } from '../../api/danmuku'
 
 interface IProps {
@@ -16,7 +17,8 @@ interface IProps {
 interface IState {
   newDmk: string,
   timeStamp: number,
-  isSendingDmk: boolean
+  isSendingDmk: boolean,
+  showCmtDrawer: boolean
 }
 
 class VideoPlayer extends React.Component<IProps, IState> {
@@ -27,7 +29,7 @@ class VideoPlayer extends React.Component<IProps, IState> {
 
   constructor (props: IProps) {
     super(props)
-    this.state = { newDmk: '', timeStamp: 0, isSendingDmk: false }
+    this.state = { newDmk: '', timeStamp: 0, isSendingDmk: false, showCmtDrawer: false }
   }
 
   handleSendDmk = (e:any):void => {
@@ -51,6 +53,15 @@ class VideoPlayer extends React.Component<IProps, IState> {
     this.setState({ timeStamp: timeStamp })
   }
 
+  handleDrawer = (isOpen: boolean):void => {
+    this.setState({ showCmtDrawer: isOpen })
+  }
+
+  handleOpenCmt = ():void => {
+    console.log('open drawer')
+    this.setState({ showCmtDrawer: true })
+  }
+
   render () {
     const { _id, videoId, url, User, likeCounts, commentsCount, description, tags } = this.props.video
     const { active } = this.props
@@ -58,6 +69,7 @@ class VideoPlayer extends React.Component<IProps, IState> {
     return (
       <div className={classNames(styles.video, { 'video-avtice': active })}>
         <Player _id={_id} id={videoId} url={url} type='video' active={active} onTimeChange={this.handleTimeChange} onRef={(c:any) => { this.ChildPlayer = c }} />
+        <VcommentDrawer videoId='1612780375771' visible={this.state.showCmtDrawer} onCmtClose={this.handleDrawer} />
         <div className={styles.info}>
           <div className={styles.liveComents}>
             <VliveComment id={videoId} />
@@ -83,7 +95,7 @@ class VideoPlayer extends React.Component<IProps, IState> {
             <div className={styles['like-icon']} />
             <div className={styles['like-number']}>{likeCounts}</div>
           </div>
-          <div className={styles.comment}>
+          <div className={styles.comment} onClick={this.handleOpenCmt}>
             <div className={styles['comment-icon']} />
             <div className={styles['comment-number']}>{commentsCount}</div>
           </div>
