@@ -8,7 +8,7 @@ import axios from 'axios'
 
 interface IProps {
   type: 'video'|'live';
-  id: string;
+  id: number;
   _id: string;
   url: string;
   active?: boolean;

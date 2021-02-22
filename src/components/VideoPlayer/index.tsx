@@ -69,7 +69,7 @@ class VideoPlayer extends React.Component<IProps, IState> {
     return (
       <div className={classNames(styles.video, { 'video-avtice': active })}>
         <Player _id={_id} id={videoId} url={url} type='video' active={active} onTimeChange={this.handleTimeChange} onRef={(c:any) => { this.ChildPlayer = c }} />
-        <VcommentDrawer videoId='1612780375771' visible={this.state.showCmtDrawer} onCmtClose={this.handleDrawer} />
+        <VcommentDrawer videoId={videoId} visible={this.state.showCmtDrawer} onCmtClose={this.handleDrawer} />
         <div className={styles.info}>
           <div className={styles.liveComents}>
             <VliveComment id={videoId} />

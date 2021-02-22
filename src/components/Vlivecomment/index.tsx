@@ -26,7 +26,7 @@ class VliveComment extends React.Component <ICommentProps, any> {
   }
 }
 interface commentRequest{
-  videoId: string
+  videoId: number
 }
 interface commentResponse{
   _id: string,
@@ -43,7 +43,7 @@ interface commentResponse{
 }
 
 interface IVliveCommentWrapperProps {
-  id: string;
+  id: number;
 }
 
 class VliveCommentWrapper extends React.Component<IVliveCommentWrapperProps, VliveCommentState> {

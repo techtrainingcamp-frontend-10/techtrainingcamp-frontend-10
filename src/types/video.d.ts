@@ -9,7 +9,7 @@ export interface IUser {
 
 export interface IVideo {
   _id: string;
-  videoId: string;
+  videoId: number;
   commentsCount: number;
   createdAt: string;
   likeCounts: number,

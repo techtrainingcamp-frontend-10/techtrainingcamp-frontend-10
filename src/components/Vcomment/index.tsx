@@ -4,17 +4,14 @@ import './index.scss'
 import { Drawer, Typography, Avatar, Form, Button, Input } from 'antd'
 import { UserOutlined, HeartFilled, SmileOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs'
-import axios from 'axios'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import dayjszhcn from 'dayjs/locale/zh-cn'
 import { Picker } from 'emoji-mart'
+import { comment, getComment, likeComment } from '../../api/comment'
 const { TextArea } = Input
 const { Link } = Typography
 dayjs.extend(relativeTime)
 dayjs.locale(dayjszhcn)
-
-const userId = '1612779773437'
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxNjEyNzc5NzczNDM3IiwiaWF0IjoxNjEyNzgwMDE0fQ.J27ujArwYmr2b7Muv2wI3FEs1YbXO8Ce2llju6dMzjo'
 
 interface ICommentProps{
   id: string,
@@ -36,10 +33,8 @@ class Comment extends React.Component<ICommentProps, ICommentState> {
 
   submitLike ():void {
     if (this.state.isLiked) { return }
-    axios.post('https://qcmt57.fn.thelarkcloud.com/likeComment', {
-      userId: userId,
-      commentId: this.props.id,
-      token: token
+    likeComment({
+      commentId: this.props.id
     })
       .then((response:any):void => {
         const data = response.data
@@ -53,10 +48,8 @@ class Comment extends React.Component<ICommentProps, ICommentState> {
 
   handleLike = (): void => {
     if (this.state.isLiked) { return }
-    axios.post('https://qcmt57.fn.thelarkcloud.com/likeComment', {
-      userId: userId,
-      commentId: this.props.id,
-      token: token
+    likeComment({
+      commentId: this.props.id
     })
       .then((response:any):void => {
         const data = response.data
@@ -144,14 +137,14 @@ class VcommentEditor extends React.Component<IPropsVcommentEditor, any> {
 }
 
 interface IProps {
-  videoId: string,
+  videoId: number,
   visible: boolean,
   onCmtClose: any
   }
 
   interface IState {
     showEmojiModal: boolean,
-    vid: string,
+    vid: number,
     placement: string,
     count: number,
     isTypeing: boolean,
@@ -185,7 +178,7 @@ interface IProps {
 //   }
 // }
 interface commentRequest{
-  videoId: string
+  videoId: number
 }
 interface commentResponse{
   _id: string,
@@ -218,10 +211,8 @@ class VcommentDrawer extends React.Component<IProps, IState> {
   }
 
   fetchComments (videoInfo:commentRequest):any {
-    axios.post('https://qcmt57.fn.thelarkcloud.com/getComment', {
-      userId: userId,
-      videoID: videoInfo.videoId,
-      token: token
+    getComment({
+      videoID: videoInfo.videoId
     })
       .then((response:any):void => {
         let data = response.data
@@ -248,10 +239,8 @@ class VcommentDrawer extends React.Component<IProps, IState> {
     this.setState({
       isSubmitting: true
     })
-    axios.post('https://qcmt57.fn.thelarkcloud.com/comment', {
-      userId: userId,
+    comment({
       comment: this.state.newComment,
-      token: token,
       videoId: this.props.videoId
     })
       .then((response:any):void => {
