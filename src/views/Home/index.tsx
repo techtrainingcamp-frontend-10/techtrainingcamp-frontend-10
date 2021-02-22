@@ -33,7 +33,7 @@ class Home extends React.Component<IProps, IState> {
   async componentDidMount () {
     try {
       const res = await getVideoList()
-      const videoList: Array<IVideo> = res.data.success.result
+      const videoList: Array<IVideo> = res.data.success.list
       this.setState({
         videoList
       })

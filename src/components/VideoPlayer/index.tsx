@@ -52,12 +52,8 @@ class VideoPlayer extends React.Component<IProps, IState> {
   }
 
   render () {
-    const { _id, videoId, url, ownerId, likeCounts, commentsCount } = this.props.video
+    const { _id, videoId, url, ownerId, likeCounts, commentsCount, description, tags } = this.props.video
     const { active } = this.props
-
-    // TODO: wait to add
-    const description = '无'
-    const tagList = ['1', '2', '3']
 
     return (
       <div className={classNames(styles.video, { 'video-avtice': active })}>
@@ -73,7 +69,7 @@ class VideoPlayer extends React.Component<IProps, IState> {
             {description}
           </div>
           <div className={styles.tags}>
-            {tagList && tagList.map(tagName => {
+            {tags && tags.map(tagName => {
               return (<span className={styles.tag} key={tagName}>#{tagName}</span>)
             })}
           </div>

@@ -9,4 +9,6 @@ export interface IVideo {
   videoId: string;
   videoName: string;
   url: string;
+  description: string;
+  tags: Array<string>;
 }
