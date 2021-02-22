@@ -212,7 +212,7 @@ class VcommentDrawer extends React.Component<IProps, IState> {
 
   fetchComments (videoInfo:commentRequest):any {
     getComment({
-      videoID: videoInfo.videoId
+      videoId: videoInfo.videoId
     })
       .then((response:any):void => {
         let data = response.data

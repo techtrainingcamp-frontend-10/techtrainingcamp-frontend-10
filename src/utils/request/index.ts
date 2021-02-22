@@ -4,7 +4,7 @@ import { getToken, getUserId } from '../auth'
 http.defaults.baseURL = process.env.REACT_APP_API
 
 // if (process.env.NODE_ENV === 'development') {
-require('../../mock/api')
+// require('../../mock/api')
 // }
 
 // 请求拦截器
