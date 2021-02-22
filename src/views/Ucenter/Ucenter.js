@@ -159,9 +159,10 @@ class UserCenterFormRegi extends React.Component {
       console.log(response)
       if (response.data.success) {
         console.log('Registered!!')
-        localStorage.setItem('userId', response.data.userId)//  save token/Uid to local
-        localStorage.setItem('userToken', response.data.token)
+        setUserId(response.data.userId)//  save token/Uid to local
+        setToken(response.data.token)
         this.props.onModechange('regiSucs')
+        this.props.onRegisterSuccess()
       } else {
         const errors = { emailUnvali: response.data.isEmailExist, unameUnvali: response.data.isUnameExist }
         this.setState(errors)
@@ -441,7 +442,8 @@ class UserCenterFormRegi extends React.Component {
 UserCenterFormRegi.propTypes = {
   mode: PropTypes.string,
   onCardUpdate: PropTypes.func,
-  onModechange: PropTypes.func
+  onModechange: PropTypes.func,
+  onRegisterSuccess: PropTypes.func
 }
 class UserCenterFormLogin extends React.Component {
   constructor (props) {
@@ -601,7 +603,7 @@ class UserCenterForm extends React.Component {
         break
       case 'regi':
       case 'regiSucs':
-        formItem = <UserCenterFormRegi mode={this.state.mode} onCardUpdate={this.handleSetRegiCard} onModechange={this.handleChangeMode} />
+        formItem = <UserCenterFormRegi onRegisterSuccess={this.handleLoginSuccess} mode={this.state.mode} onCardUpdate={this.handleSetRegiCard} onModechange={this.handleChangeMode} />
     }
     return (
       <div className='usercenter-wrapper'>
