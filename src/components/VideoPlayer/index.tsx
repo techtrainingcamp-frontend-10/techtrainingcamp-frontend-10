@@ -8,10 +8,12 @@ import { UpCircleOutlined } from '@ant-design/icons'
 import VliveComment from '../Vlivecomment'
 import VcommentDrawer from '../Vcomment'
 import { createDanmuku } from '../../api/danmuku'
+import Like from '../../components/Like'
 
 interface IProps {
   video: IVideo;
   active?: boolean;
+  onLiked?: Function;
 }
 
 interface IState {
@@ -62,6 +64,12 @@ class VideoPlayer extends React.Component<IProps, IState> {
     this.setState({ showCmtDrawer: true })
   }
 
+  handleLiked = () => {
+    if (this.props.onLiked) {
+      this.props.onLiked(this.props.video)
+    }
+  }
+
   render () {
     const { _id, videoId, url, User, likeCounts, commentsCount, description, tags } = this.props.video
     const { active } = this.props
@@ -91,10 +99,7 @@ class VideoPlayer extends React.Component<IProps, IState> {
           </div>
         </div>
         <div className={styles.action}>
-          <div className={styles.like}>
-            <div className={styles['like-icon']} />
-            <div className={styles['like-number']}>{likeCounts}</div>
-          </div>
+          <Like videoId={videoId} num={likeCounts} onLiked={this.handleLiked} />
           <div className={styles.comment} onClick={this.handleOpenCmt}>
             <div className={styles['comment-icon']} />
             <div className={styles['comment-number']}>{commentsCount}</div>

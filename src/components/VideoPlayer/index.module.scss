@@ -79,7 +79,6 @@ $top-z-index : 10000;
   max-width: 20vw;
   z-index: $top-z-index;
 
-  .like,
   .comment {
     margin-bottom: 15px;
     display: flex;
@@ -96,12 +95,6 @@ $top-z-index : 10000;
     &-number {
       color: #ffffff;
       font-size: 12px;
-    }
-  }
-
-  .like {
-    &-icon {
-      background-image: url('../../static/image/like.png');
     }
   }
 

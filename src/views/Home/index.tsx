@@ -63,6 +63,11 @@ class Home extends React.Component<IProps, IState> {
     })
   }
 
+  handleLiked = (video: IVideo) => {
+    const videoItem = this.state.videoList.find(item => item === video)
+    if (videoItem) videoItem.likeCounts++
+  }
+
   render () {
     const { inPageVideoList, activeIndex } = this.state
 
@@ -83,7 +88,7 @@ class Home extends React.Component<IProps, IState> {
             {inPageVideoList.map((video, index) => {
               return (
                 <SwiperSlide key={video._id}>
-                  <VideoPlayer video={video} active={activeIndex === index} />
+                  <VideoPlayer video={video} active={activeIndex === index} onLiked={this.handleLiked} />
                 </SwiperSlide>
               )
             })}
