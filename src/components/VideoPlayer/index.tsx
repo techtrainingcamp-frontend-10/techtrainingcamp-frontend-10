@@ -72,7 +72,7 @@ class VideoPlayer extends React.Component<IProps, IState> {
         <VcommentDrawer videoId={videoId} visible={this.state.showCmtDrawer} onCmtClose={this.handleDrawer} />
         <div className={styles.info}>
           <div className={styles.liveComents}>
-            <VliveComment id={videoId} />
+            <VliveComment type='video' id={videoId} />
           </div>
           <div className={styles.author}>
             @{User[0].userName}
