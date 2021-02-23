@@ -639,7 +639,7 @@ const ucenter = () => {
   const history = useHistory()
   return (
     <>
-      <video id='ucenterBgVedio' playsInline autoPlay muted loop src='https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qcmt57/cbbf7b1a02c400d6_1612887218358.mp4' data-object-fit='true' type='video/mp4' poster='https://sf1-scmcdn-tos.pstatp.com/goofy/ies/douyin_home_web/imgs/1.9e1ce889.jpg'>抱歉，您的浏览器不支持内嵌视频</video>
+      <video id='ucenterBgVedio' playsInline autoPlay muted loop x5-video-player-type='h5' src='https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qcmt57/cbbf7b1a02c400d6_1612887218358.mp4' data-object-fit='true' type='video/mp4' poster='https://sf1-scmcdn-tos.pstatp.com/goofy/ies/douyin_home_web/imgs/1.9e1ce889.jpg'>抱歉，您的浏览器不支持内嵌视频</video>
       <div className='wrapper'>
         <UserCenter history={history} />
       </div>
