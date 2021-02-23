@@ -25,19 +25,33 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>My TikTok</title>
+<style>
+      .skeleton {
+        text-align: center;
+        background-color: black;
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        padding-top: 10vh;
+        justify-content: center;
+      }
+      .skeleton-logo{
+          width: 45vw;
+          height: 30vw;
+          animation: bump ease-in-out 2s infinite alternate;
+      }
+      @keyframes bump{
+  from{transform:translate(0,0)}
+  to{transform:translate(0,5vh)}
+  }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    <div id="root">
+<div class='skeleton'>
+  <img class='skeleton-logo' src='https://gimg2.baidu.com/image_search/src=http%3A%2F%2F00imgmini.eastday.com%2Fmobile%2F20190424%2F20190424105310_3ab9c3db66a10c86621f2a7867ba246d_1.jpeg&refer=http%3A%2F%2F00imgmini.eastday.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1616672378&t=ec87a046b38109110dadb75536ed7b62'></img>
+</div>
+</div>
   </body>
 </html>
