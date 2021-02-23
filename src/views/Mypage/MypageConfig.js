@@ -6,11 +6,6 @@ import { LoadingOutlined } from '@ant-design/icons'
 import { getUserInfo, getUserBadges, updateUser } from '../../api/userInfo'
 import PropTypes from 'prop-types'
 class UcenterConfigBadgeCard extends React.Component {
-  constructor (props) {
-    super(props)
-    console.log('s')
-  }
-
   handleBadgeClick = () => {
     this.props.handleBadgeChange(this.props.id)
   }
@@ -91,7 +86,7 @@ class UcenterConfig extends React.Component {
         message.error('修改用户信息失败')
         console.log(error)
       }).finally(() => {
-        this.setState({ loading: true })
+        this.setState({ loading: false })
       })
   }
 
@@ -100,8 +95,8 @@ class UcenterConfig extends React.Component {
       <div>
         <PageHeader
           className='site-page-header'
-          onBack={() => null}
           title='修改信息'
+          onBack={() => {}}
           subTitle={this.state.loading ? <div><LoadingOutlined />加载中</div> : '修改头像框'}
         />
         <div className='badge-wrapper'>

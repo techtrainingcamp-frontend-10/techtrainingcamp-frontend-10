@@ -28,7 +28,7 @@ export default function BasicExample () {
           <Route path='/ucenter' history={history} component={Ucenter} />
           <AuthRoute path='/mypage' component={Mypage} />
           <Route path='/dev' component={Vcomment} videoId='1612780375771' />
-          <Route path='/dev2' component={UcenterConfig} />
+          <Route path='/myBadge' component={UcenterConfig} />
         </Switch>
       </div>
     </Router>

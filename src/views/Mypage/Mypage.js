@@ -1,6 +1,7 @@
 import React from 'react'
 import { Image, Button, Typography, Tag, Tabs } from 'antd'
 import { QrcodeOutlined, EnvironmentFilled, SmileFilled, HeartOutlined } from '@ant-design/icons'
+import { Link } from 'react-router-dom'
 import './Mypage.scss'
 import PropTypes from 'prop-types'
 import { getUserInfo } from '../../api/userInfo'
@@ -96,7 +97,7 @@ class MypageInfo extends React.Component {
             <img className='mypage-info-header-avatar-img' src={this.props.avatar} />
             <img className='mypage-info-header-avatar-ripon' src={this.props?.badgeurl} />
           </div>
-          <Button style={{ 'max-width': '130px', 'margin-right': '10px', 'margin-left': 'auto' }} block>编辑资料<span style={{ color: 'grey' }}>25%</span></Button>
+          <Link to='/myBadge'> <Button style={{ 'max-width': '130px', 'margin-right': '45px', 'margin-left': 'auto' }} block>编辑资料<span style={{ color: 'grey' }}>25%</span></Button></Link>
           <Button style={{ 'max-width': '80px' }} type='primary' block>找朋友</Button>
         </div>
         <div className='mypage-info-nickname'>{this.props.userName}</div>
