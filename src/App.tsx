@@ -9,7 +9,7 @@ import Live from './views/Live/index'
 import Ucenter from './views/Ucenter/Ucenter'
 import Mypage from './views/Mypage/Mypage'
 import Vcomment from './components/Vcomment/index'
-import VliveComment from './components/Vlivecomment'
+import UcenterConfig from './views/Mypage/MypageConfig'
 
 export default function BasicExample () {
   return (
@@ -28,7 +28,7 @@ export default function BasicExample () {
           <Route path='/ucenter' history={history} component={Ucenter} />
           <AuthRoute path='/mypage' component={Mypage} />
           <Route path='/dev' component={Vcomment} videoId='1612780375771' />
-          <Route path='/dev2' component={VliveComment} />
+          <Route path='/dev2' component={UcenterConfig} />
         </Switch>
       </div>
     </Router>

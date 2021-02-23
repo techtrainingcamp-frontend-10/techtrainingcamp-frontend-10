@@ -1,0 +1,118 @@
+import React from 'react'
+// import axios from 'axios'
+import './MypageConfig.scss'
+import { PageHeader, message } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons'
+import { getUserInfo, getUserBadges, updateUser } from '../../api/userInfo'
+import PropTypes from 'prop-types'
+class UcenterConfigBadgeCard extends React.Component {
+  constructor (props) {
+    super(props)
+    console.log('s')
+  }
+
+  handleBadgeClick = () => {
+    this.props.handleBadgeChange(this.props.id)
+  }
+
+  render () {
+    return (
+      <div className={`badge-card ${this.props.id === this.props.currentId ? 'sele' : ''}`}>
+        <div className='avatar' onClick={this.handleBadgeClick}>
+          <img className='avatar-img' src={this.props.avatar} />
+          <img className='avatar-ripon' src={this.props.badgeUrl} />
+        </div>
+        <div className='badge-card-name'>{this.props.badgeName}</div>
+      </div>
+    )
+  }
+}
+
+UcenterConfigBadgeCard.propTypes = {
+  id: PropTypes.string,
+  avatar: PropTypes.string,
+  badgeUrl: PropTypes.string,
+  currentId: PropTypes.string,
+  badgeName: PropTypes.string,
+  handleBadgeChange: PropTypes.func
+}
+class UcenterConfig extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = { avatar: '', badgeSet: '', badges: [], currentId: '', loading: true }
+  }
+
+  componentDidMount () {
+    this.fetchUserAvatar()
+    this.fetchUserBadges()
+  }
+
+  fetchUserAvatar () {
+    getUserInfo({
+    })
+      .then((response) => {
+        let data = response.data
+        if (!data.success) { return }
+        data = data.data
+        this.setState({ avatar: data.avatar, badgeSet: data.badgeurl, currentId: data.badgeItem._id })
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
+
+  fetchUserBadges () {
+    getUserBadges({
+    })
+      .then((response) => {
+        let data = response.data
+        if (!data.success) { return }
+        data = data.data
+        this.setState({ badges: data, loading: false })
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
+
+  changeUserBadges = (id) => {
+    this.setState({ loading: true })
+    updateUser({
+      badge: id
+    })
+      .then((response) => {
+        let data = response.data
+        if (!data.success) { return }
+        data = data.data
+        this.setState({ currentId: id })
+        message.success('修改头像框成功')
+      })
+      .catch(function (error) {
+        message.error('修改用户信息失败')
+        console.log(error)
+      }).finally(() => {
+        this.setState({ loading: true })
+      })
+  }
+
+  render () {
+    return (
+      <div>
+        <PageHeader
+          className='site-page-header'
+          onBack={() => null}
+          title='修改信息'
+          subTitle={this.state.loading ? <div><LoadingOutlined />加载中</div> : '修改头像框'}
+        />
+        <div className='badge-wrapper'>
+          {this.state.badges.map(badge => {
+            return (
+              <UcenterConfigBadgeCard key={badge._id} id={badge._id} avatar={this.state.avatar} badgeUrl={badge.badgeItem.badgeUrl} badgeName={badge.badgeItem.badgeName} currentId={this.state.currentId} handleBadgeChange={this.changeUserBadges} />
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+}
+export default UcenterConfig
