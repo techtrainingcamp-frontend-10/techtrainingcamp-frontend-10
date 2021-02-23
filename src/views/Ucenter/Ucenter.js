@@ -392,6 +392,12 @@ class UserCenterFormRegi extends React.Component {
             <Input style={{ width: '100%' }} onChange={this.handleReginChange} />
           </Form.Item>
           <Form.Item
+            name='bio'
+            label='个性签名'
+          >
+            <Input style={{ width: '100%' }} />
+          </Form.Item>
+          <Form.Item
             name='gender'
             label='性别'
             rules={[

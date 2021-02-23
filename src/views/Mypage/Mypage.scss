@@ -32,7 +32,8 @@ $--sub-text-color:black;
         &-footer{
             font-size: 15px;
             color: gray;
-            margin:5px auto;
+            display: flex;
+            justify-content: center;
         }
     }
     &-wrapper{
@@ -69,9 +70,9 @@ $--sub-text-color:black;
         }
     }
     &-info{
-        background-color: gray;
         margin-top: 150px;
         padding: 20px 20px 10px 22px;
+        background-color: white;
         &-header{
         flex-direction: row;
         display: flex;
@@ -80,8 +81,7 @@ $--sub-text-color:black;
                 width: 80px;
                 height: 80px;
                 position: relative;
-                top:-25px;
-                background-color: gray;
+                top:-50px;
                 
                 &-img{
                     width: 100%;
@@ -119,7 +119,7 @@ $--sub-text-color:black;
             display: flex;
             margin-top: 15px;
             &>span{
-                color: white;
+                color: gray;
                 font-size: 18px;
                 margin-left: 5px;
             }

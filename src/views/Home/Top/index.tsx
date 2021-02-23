@@ -19,7 +19,9 @@ class Top extends React.Component<IProps, IState> {
         </div>
         <div className={styles.middle}>
           <div className={styles.navbar}>
-            <div className={styles['navbar-item']}>同城</div>
+            <Link to='/mypage'>
+              <div className={styles['navbar-item']} style={{ color: '#ffffff' }}>我</div>
+            </Link>
             <div className={styles['navbar-item']}>关注</div>
             <div className={`${styles['navbar-item']} ${styles['navbar-item-active']}`}>推荐</div>
           </div>
