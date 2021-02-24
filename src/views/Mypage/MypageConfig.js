@@ -67,8 +67,8 @@ class UcenterConfig extends React.Component {
         let data = response.data
         if (!data.success) { return }
         data = data.data
-        localStorage.setItem('myBadges', JSON.stringify(data))
         this.setState({ badges: data })
+        localStorage.setItem('myBadges', JSON.stringify(data))
       })
       .catch((error) => {
         const data = localStorage.getItem('myBadges')
