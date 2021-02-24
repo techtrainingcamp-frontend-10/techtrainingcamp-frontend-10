@@ -1,4 +1,4 @@
-# 玩转前端-第10组-基于React+西瓜播放器+轻服务NodeJs的抖音短视频及管理平台项目
+# 玩转前端-第10组-基于React+西瓜播放器+轻服务NodeJs的抖音短视频及管理平台项目（用户端）
 
 **用户端：https://techtrainingcamp-frontend-10.github.io/**  
 **管理平台端： https://techtrainingcamp-frontend-10.github.io/techtrainingcamp-frontend-10-admin.github.io/**
