@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, Button, Typography, Tag, Tabs } from 'antd'
+import { Image, Button, Typography, Tag, Tabs, message } from 'antd'
 import { QrcodeOutlined, EnvironmentFilled, SmileFilled, HeartOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import './Mypage.scss'
@@ -147,10 +147,15 @@ class Mypage extends React.Component {
         let data = response.data
         if (!data.success) { return }
         data = data.data
+        localStorage.setItem('myInfo', JSON.stringify(data))
+        console.log(data)
         this.setState({ userInfo: data })
       })
-      .catch(function (error) {
-        console.log(error)
+      .catch((error) => {
+        const data = localStorage.getItem('myInfo')
+        data && this.setState({ userInfo: JSON.parse(data) })
+        console.error(error)
+        message.warning('与服务器连接失败', 10)
       })
   }
 

@@ -52,6 +52,10 @@ class UcenterConfig extends React.Component {
         this.setState({ avatar: data.avatar, badgeSet: data.badgeurl, currentId: data.badgeItem._id })
       })
       .catch(function (error) {
+        let data = localStorage.getItem('myInfo')
+        if (!data) { return }
+        data = JSON.parse(data)
+        data && this.setState({ avatar: data.avatar, badgeSet: data.badgeurl, currentId: data.badgeItem._id })
         console.log(error)
       })
   }
@@ -63,11 +67,15 @@ class UcenterConfig extends React.Component {
         let data = response.data
         if (!data.success) { return }
         data = data.data
-        this.setState({ badges: data, loading: false })
+        localStorage.setItem('myBadges', JSON.stringify(data))
+        this.setState({ badges: data })
       })
-      .catch(function (error) {
-        console.log(error)
-      })
+      .catch((error) => {
+        const data = localStorage.getItem('myBadges')
+        data && this.setState({ badges: JSON.parse(data) })
+        console.error(error)
+        message.warning('与服务器连接失败,更改的信息可能不会保存', 5)
+      }).finally(() => { this.setState({ loading: false }) })
   }
 
   changeUserBadges = (id) => {
