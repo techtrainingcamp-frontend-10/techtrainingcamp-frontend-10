@@ -97,8 +97,8 @@ class MypageInfo extends React.Component {
             <img className='mypage-info-header-avatar-img' src={this.props.avatar} />
             <img className='mypage-info-header-avatar-ripon' src={this.props?.badgeurl} />
           </div>
-          <Link to='/myBadge'> <Button style={{ 'max-width': '130px', 'margin-right': '45px', 'margin-left': 'auto' }} block>编辑资料<span style={{ color: 'grey' }}>25%</span></Button></Link>
-          <Button style={{ 'max-width': '80px' }} type='primary' block>找朋友</Button>
+          <Link to='/myBadge'> <Button style={{ maxWidth: '130px', marginRight: '45px', marginLeft: 'auto' }} block>编辑资料<span style={{ color: 'grey' }}>25%</span></Button></Link>
+          <Button style={{ maxWidth: '80px' }} type='primary' block>找朋友</Button>
         </div>
         <div className='mypage-info-nickname'>{this.props.userName}</div>
         <div className='mypage-info-tikid'>抖音号:jhonlee<span onClick={this.handleShowQR}><QrcodeOutlined /></span></div>

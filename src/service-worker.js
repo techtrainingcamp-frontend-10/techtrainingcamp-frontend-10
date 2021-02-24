@@ -65,7 +65,16 @@ registerRoute(
     ]
   })
 )
-
+precacheAndRoute(
+  /\.(?:png|gif|jpg|jpeg|webp|svg|)$/, {
+    cacheName: 'images',
+    plugins: [
+      new ExpirationPlugin({
+        maxEntries: 60,
+        maxAgeSeconds: 30 * 24 * 60 * 60 // 30 Days
+      })
+    ]
+  })
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
 self.addEventListener('message', (event) => {
