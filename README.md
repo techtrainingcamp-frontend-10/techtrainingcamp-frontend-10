@@ -2,7 +2,7 @@
 
 **用户端：https://techtrainingcamp-frontend-10.github.io/**  
 **管理平台端： https://techtrainingcamp-frontend-10.github.io/techtrainingcamp-frontend-10-admin.github.io/**
-用户名密码请见Project Slides
+- 用户名密码请见Project Slides
 
 
 ## 项目亮点
