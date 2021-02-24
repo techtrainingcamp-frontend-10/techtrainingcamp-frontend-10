@@ -1,46 +1,57 @@
-# Getting Started with Create React App
+# 玩转前端-第10组-基于React+西瓜播放器+轻服务NodeJs的抖音短视频及管理平台项目
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**用户端：https://techtrainingcamp-frontend-10.github.io/**  
+**管理平台端： https://techtrainingcamp-frontend-10.github.io/techtrainingcamp-frontend-10-admin.github.io/**
 
-## Available Scripts
+## 项目亮点
+1.使用西瓜播放器，支持直播，视频点播功能
+2.支持弹幕/评论/点赞/直播实时评论滚动（基于轮询）
+3.使用轻服务提供稳定的后台服务
+4.基于GithubAction的自动构建
+5.使用WorkerBox进行缓存和离线支持
+6.基于AntdPro的管理后台
 
-In the project directory, you can run:
+### 前端
+#### 用户前端
+  - 李昊洋：用户登录注册，用户信息页，视频评论及弹幕，PWA适配
+  - 陈鸿飞：基础架构、播放器组件、持续集成
+#### 管理后台前端
+  - 叶嘉昊：各页面（登录页、短视频页、直播间页、评论管理页）交互与展示
+  - 葛凌安：页面路由、页面交互
+#### 后端
+- 罗昱豪：部署、云函数
+- 郑霖雅： 部分后端接口，数据库交互接口
 
-### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+项目背景与分析思路--简要  
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 项目原理与成果
+#### 用户端思路与成果
+1. 使用 ESLint standard-js 统一代码风格
+2. 使用 TypeScript 进行开发
+3. 基于 Swiper.js 和西瓜播放器封装了滑动播放组件，预渲染且仅渲染当前视频的前后两个视频 DOM，以提高流畅度
+4. 使用 axios 拦截器自动为请求增加登录态
+5. 封装了 react-router，实现路由跳转前自动鉴权
+6. 使用 Github Actions 自动编译并部署到 Github Pages
+7. 使用ReactCSSTransitionGroup实现实时无限循环显示评论
+8. 使用视频背景和毛玻璃滤镜实现吸引眼球的动态卡片效果
+9. 使用workbox实现静态资源以及cdn资源的缓存
+10. 使用骨架屏提升首屏加载速度，使用PWA让网站可安装
+#### 管理后台端思路与成果
+1. 使用 React、react-router、JavaScript 进行开发
+2. 采用普通 CSS 和 styled-component 结合来编写（全局采用普通 CSS、局部采用 styled-component）
+3. 项目中统一使用函数式组件 + Hooks，为了避免不必要的渲染函数式组件使用memo 进行包裹
+4. 对 axios 进行二次封装，将项目中的请求合在一个文件中单独管理
+#### 后端思路与成果
+1. 使用轻服务进行开发
+2. 使用轻服务云函数编写后端接口以及数据库交互
+3. 使用轻服务数据库存储用户，视频等数据信息存储
+4. 使用轻服务文件系统将文件上传服务器
+## 结论及反思
+通过协作，我们最终实现了具有基本功能涵盖C端B端的短视频平台解决方案，并在基本功能的基础上从用户体验和性能优化方面进行了提升。
+### 反思：
+1. 在过程中也遇到了各成员对于技术栈不熟悉或者没有相关开发背景的问题
+为了解决这个问题我们互相分享了技术文档、并建立起了每日问题登记、跟进制度
+包括react教程、git教程与规范等
+或许有更好的方案（最开始先开展一些workshop，做些小项目练手）
+我们应该在早期对于最终产品的样式有统一的理解，并尽早确定接口文档来避免后期遇到的理解不一样、接口对接的问题

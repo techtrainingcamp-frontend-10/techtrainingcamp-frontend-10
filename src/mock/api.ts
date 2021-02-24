@@ -1,6 +1,6 @@
 import Mock, { Random } from 'mockjs'
 
-console.log('mockjs start')
+// console.log('mockjs start')
 
 Mock.setup({
   timeout: '200-600' // 设置响应时间

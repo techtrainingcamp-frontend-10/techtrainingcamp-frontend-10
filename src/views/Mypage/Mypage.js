@@ -148,7 +148,6 @@ class Mypage extends React.Component {
         if (!data.success) { return }
         data = data.data
         localStorage.setItem('myInfo', JSON.stringify(data))
-        console.log(data)
         this.setState({ userInfo: data })
       })
       .catch((error) => {

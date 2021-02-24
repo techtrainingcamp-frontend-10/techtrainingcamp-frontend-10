@@ -152,13 +152,10 @@ class UserCenterFormRegi extends React.Component {
   }
 
   handleOnRegiSubmit = (values) => {
-    console.log('Received values of form: ', values)
     delete values.agreement
     this.setState({ formSubmiting: true })
     axios.post('https://qcmt57.fn.thelarkcloud.com/register', values).then(response => {
-      console.log(response)
       if (response.data.success) {
-        console.log('Registered!!')
         setUserId(response.data.userId)//  save token/Uid to local
         setToken(response.data.token)
         this.props.onModechange('regiSucs')
@@ -199,7 +196,6 @@ class UserCenterFormRegi extends React.Component {
   }
 
   handleAvatarChange = info => {
-    console.log(info)
     if (info.file.status === 'uploading') {
       this.setState({ avatarLoading: true })
       return
@@ -480,20 +476,17 @@ class UserCenterFormLogin extends React.Component {
   }
 
   handleLogin = (loginData) => {
-    console.log(loginData)
     this.setState({ loading: true, showMsg: false })
     axios.post('https://qcmt57.fn.thelarkcloud.com/login', {
       userName: loginData.username,
       password: loginData.password
     })
       .then(function (response) {
-        console.log(response)
         this.setState({ loading: false, disabled: true })
         if (!response.data.success) { throw (new Error('login failed')) }
         setToken(response.data.token) // save token to local
         setUserId(response.data.userId)
         this.props.onModechange('loginSucs')
-        console.log(this.props)
         this.props.onLoginSuccess()
       }.bind(this))
       .catch(function (error) {

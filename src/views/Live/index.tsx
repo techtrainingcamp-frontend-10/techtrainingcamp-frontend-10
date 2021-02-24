@@ -38,7 +38,6 @@ class Live extends React.Component<IProps, IState> {
       this.setState({
         inPageLiveList: liveList.slice(0, 2)
       })
-      console.log(this.state)
     } catch (e) {
       console.log(e)
     }
@@ -49,13 +48,11 @@ class Live extends React.Component<IProps, IState> {
     const { liveList, inPageLiveList } = this.state
     const { activeIndex } = swiper
     if (activeIndex === inPageLiveList.length - 1 && activeIndex < liveList.length - 1) {
-      console.log('added')
       this.setState({
         inPageLiveList: [...inPageLiveList, liveList[activeIndex + 1]]
       })
       swiper.update()
     }
-    console.log('Active swiper:', activeIndex)
     this.setState({
       activeIndex: activeIndex
     })

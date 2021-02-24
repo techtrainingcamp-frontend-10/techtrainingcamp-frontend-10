@@ -40,14 +40,12 @@ class Home extends React.Component<IProps, IState> {
       this.setState({
         inPageVideoList: videoList.slice(0, 2)
       })
-      console.log(this.state)
     } catch (e) {
       console.log(e)
     }
   }
 
   handleSwiperChange = (swiper: SwiperClass) => {
-    console.log(swiper)
     const { videoList, inPageVideoList } = this.state
     const { activeIndex } = swiper
     if (activeIndex === inPageVideoList.length - 1 && activeIndex < videoList.length - 1) {

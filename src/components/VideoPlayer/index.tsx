@@ -60,7 +60,6 @@ class VideoPlayer extends React.Component<IProps, IState> {
   }
 
   handleOpenCmt = ():void => {
-    console.log('open drawer')
     this.setState({ showCmtDrawer: true })
   }
 

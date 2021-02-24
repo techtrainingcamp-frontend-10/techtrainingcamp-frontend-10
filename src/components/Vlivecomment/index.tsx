@@ -142,7 +142,6 @@ class VliveCommentWrapper extends React.Component<IVliveCommentWrapperProps, Vli
         this.setState({
           displayComents: comment
         })
-        console.log(this.state)
       }
     } catch (e) {
       console.log(e)
