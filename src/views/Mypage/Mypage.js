@@ -11,7 +11,7 @@ class MypageCover extends React.Component {
   render () {
     return (
       <div className='mypage-header-cover'>
-        <img src={this.props.bgImg} />
+        <img src={this.props.bgImg || 'https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qcmt57/85cf033a8f890996_1614224071604.jpg'} />
       </div>
     )
   }
@@ -22,7 +22,7 @@ MypageCover.propTypes = {
 const NumberInfo = ({ num, discribe }) => {
   return (
     <Text lcass='number-info'>
-      <span className='number-info-num'>{num}</span>
+      <span className='number-info-num'>{num || '-'}</span>
       {discribe}
     </Text>
 
@@ -94,8 +94,8 @@ class MypageInfo extends React.Component {
       <div className='mypage-info'>
         <div className='mypage-info-header'>
           <div className='mypage-info-header-avatar'>
-            <img className='mypage-info-header-avatar-img' src={this.props.avatar} />
-            <img className='mypage-info-header-avatar-ripon' src={this.props?.badgeurl} />
+            <img className='mypage-info-header-avatar-img' src={this.props.avatar || 'https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qcmt57/b651040049239b73_1614224320328.jpg'} />
+            <img className='mypage-info-header-avatar-ripon' src={this.props?.badgeurl || 'https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qcmt57/1fecdbf7a45a5e0e_1614224449021.png'} />
           </div>
           <Link to='/myBadge'> <Button style={{ maxWidth: '130px', marginRight: '45px', marginLeft: 'auto' }} block>编辑资料<span style={{ color: 'grey' }}>25%</span></Button></Link>
           <Button style={{ maxWidth: '80px' }} type='primary' block>找朋友</Button>

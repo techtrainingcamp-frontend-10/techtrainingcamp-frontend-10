@@ -51,11 +51,11 @@ class UcenterConfig extends React.Component {
         data = data.data
         this.setState({ avatar: data.avatar, badgeSet: data.badgeurl, currentId: data.badgeItem._id })
       })
-      .catch(function (error) {
+      .catch((error) => {
         let data = localStorage.getItem('myInfo')
         if (!data) { return }
         data = JSON.parse(data)
-        data && this.setState({ avatar: data.avatar, badgeSet: data.badgeurl, currentId: data.badgeItem._id })
+        data && this.setState({ avatar: data.avatar, badgeSet: data.badgeurl, currentId: data.badgeItem?._id })
         console.log(error)
       })
   }
@@ -108,11 +108,13 @@ class UcenterConfig extends React.Component {
           subTitle={this.state.loading ? <div><LoadingOutlined />加载中</div> : '修改头像框'}
         />
         <div className='badge-wrapper'>
-          {this.state.badges.map(badge => {
-            return (
-              <UcenterConfigBadgeCard key={badge._id} id={badge._id} avatar={this.state.avatar} badgeUrl={badge.badgeItem.badgeUrl} badgeName={badge.badgeItem.badgeName} currentId={this.state.currentId} handleBadgeChange={this.changeUserBadges} />
-            )
-          })}
+          {this.state.badges.length <= 0
+            ? (<UcenterConfigBadgeCard key={0} id={0} avatar={this.state.avatar} badgeUrl='https://sf1-ttcdn-tos.pstatp.com/obj/larkcloud-file-storage/baas/qcmt57/1fecdbf7a45a5e0e_1614224449021.png' badgeName='暂无可用挂件' currentId={this.state.currentId} handleBadgeChange={this.changeUserBadges} />)
+            : this.state.badges.map(badge => {
+              return (
+                <UcenterConfigBadgeCard key={badge._id} id={badge._id} avatar={this.state.avatar} badgeUrl={badge.badgeItem.badgeUrl} badgeName={badge.badgeItem.badgeName} currentId={this.state.currentId} handleBadgeChange={this.changeUserBadges} />
+              )
+            })}
         </div>
       </div>
     )
